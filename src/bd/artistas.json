@@ -1,0 +1,62 @@
+[
+  {
+    "_id": { "$oid": "67018e6a1c9d440000a1b1a1" },
+    "artistaID": "ART001",
+    "nombre": "Gustavo Cerati",
+    "pais": "Argentina",
+    "descripcion": "Músico, cantautor, compositor y productor discográfico argentino, líder de la banda Soda Stereo.",
+    "url_foto": "https://example.com/cerati.jpg",
+    "createdAt": { "$date": "2025-09-29T22:15:00.000Z" },
+    "updatedAt": { "$date": "2025-09-29T22:15:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67018e6a1c9d440000a1b1a2" },
+    "artistaID": "ART002",
+    "nombre": "Queen",
+    "pais": "Reino Unido",
+    "descripcion": "Banda británica de rock formada en 1970 en Londres por el cantante Freddie Mercury, el guitarrista Brian May, el baterista Roger Taylor y el bajista John Deacon.",
+    "url_foto": "https://example.com/queen.jpg",
+    "createdAt": { "$date": "2025-09-29T22:16:00.000Z" },
+    "updatedAt": { "$date": "2025-09-29T22:16:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67018e6a1c9d440000a1b1a3" },
+    "artistaID": "ART003",
+    "nombre": "Taylor Swift",
+    "pais": "Estados Unidos",
+    "descripcion": "Cantautora, productora, directora, actriz y empresaria estadounidense. Su narrativa y composición, a menudo inspirada en sus experiencias personales, ha recibido una amplia cobertura mediática y elogios de la crítica.",
+    "url_foto": "https://example.com/taylorswift.jpg",
+    "createdAt": { "$date": "2025-09-29T22:17:00.000Z" },
+    "updatedAt": { "$date": "2025-09-29T22:17:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67018e6a1c9d440000a1b1a4" },
+    "artistaID": "ART004",
+    "nombre": "ABBA",
+    "pais": "Suecia",
+    "descripcion": "Grupo sueco de música pop, integrado por Agnetha Fältskog, Björn Ulvaeus, Benny Andersson y Anni-Frid Lyngstad.",
+    "url_foto": "https://example.com/abba.jpg",
+    "createdAt": { "$date": "2025-09-29T22:18:00.000Z" },
+    "updatedAt": { "$date": "2025-09-29T22:18:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67018e6a1c9d440000a1b1a5" },
+    "artistaID": "ART005",
+    "nombre": "Bee Gees",
+    "pais": "Reino Unido",
+    "descripcion": "Grupo musical británico de pop rock, balada y disco, formado por los hermanos Barry, Robin y Maurice Gibb.",
+    "url_foto": "https://example.com/beegees.jpg",
+    "createdAt": { "$date": "2025-09-29T22:19:00.000Z" },
+    "updatedAt": { "$date": "2025-09-29T22:19:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67018e6a1c9d440000a1b1a6" },
+    "artistaID": "ART006",
+    "nombre": "Ghost",
+    "pais": "Suecia",
+    "descripcion": "Banda sueca de heavy metal formada en Linköping en 2006. Su música ha sido clasificada en géneros como heavy metal, doom metal, hard rock y rock psicodélico.",
+    "url_foto": "https://example.com/ghost.jpg",
+    "createdAt": { "$date": "2025-09-29T22:20:00.000Z" },
+    "updatedAt": { "$date": "2025-09-29T22:20:00.000Z" }
+  }
+]

@@ -1,0 +1,20 @@
+[
+  { "albumID": "ALB001", "titulo": "Bocanada", "artistaID": "ART001", "anio": 1999, "url_portada": "https://example.com/bocanada.jpg" },
+  { "albumID": "ALB002", "titulo": "Ahí vamos", "artistaID": "ART001", "anio": 2006, "url_portada": "https://example.com/ahivamos.jpg" },
+  { "albumID": "ALB003", "titulo": "Fuerza Natural", "artistaID": "ART001", "anio": 2009, "url_portada": "https://example.com/fuerzanatural.jpg" },
+  { "albumID": "ALB004", "titulo": "A Night at the Opera", "artistaID": "ART002", "anio": 1975, "url_portada": "https://example.com/anightattheopera.jpg" },
+  { "albumID": "ALB005", "titulo": "News of the World", "artistaID": "ART002", "anio": 1977, "url_portada": "https://example.com/newsoftheworld.jpg" },
+  { "albumID": "ALB006", "titulo": "The Game", "artistaID": "ART002", "anio": 1980, "url_portada": "https://example.com/thegame.jpg" },
+  { "albumID": "ALB007", "titulo": "Fearless", "artistaID": "ART003", "anio": 2008, "url_portada": "https://example.com/fearless.jpg" },
+  { "albumID": "ALB008", "titulo": "1989", "artistaID": "ART003", "anio": 2014, "url_portada": "https://example.com/1989.jpg" },
+  { "albumID": "ALB009", "titulo": "folklore", "artistaID": "ART003", "anio": 2020, "url_portada": "https://example.com/folklore.jpg" },
+  { "albumID": "ALB010", "titulo": "Arrival", "artistaID": "ART004", "anio": 1976, "url_portada": "https://example.com/arrival.jpg" },
+  { "albumID": "ALB011", "titulo": "Super Trouper", "artistaID": "ART004", "anio": 1980, "url_portada": "https://example.com/supertrouper.jpg" },
+  { "albumID": "ALB012", "titulo": "The Visitors", "artistaID": "ART004", "anio": 1981, "url_portada": "https://example.com/thevisitors.jpg" },
+  { "albumID": "ALB013", "titulo": "Saturday Night Fever", "artistaID": "ART005", "anio": 1977, "url_portada": "https://example.com/saturdaynightfever.jpg" },
+  { "albumID": "ALB014", "titulo": "Spirits Having Flown", "artistaID": "ART005", "anio": 1979, "url_portada": "https://example.com/spiritshavingflown.jpg" },
+  { "albumID": "ALB015", "titulo": "Main Course", "artistaID": "ART005", "anio": 1975, "url_portada": "https://example.com/maincourse.jpg" },
+  { "albumID": "ALB016", "titulo": "Meliora", "artistaID": "ART006", "anio": 2015, "url_portada": "https://example.com/meliora.jpg" },
+  { "albumID": "ALB017", "titulo": "Prequelle", "artistaID": "ART006", "anio": 2018, "url_portada": "https://example.com/prequelle.jpg" },
+  { "albumID": "ALB018", "titulo": "Impera", "artistaID": "ART006", "anio": 2022, "url_portada": "https://example.com/impera.jpg" }
+]
