@@ -5,6 +5,7 @@ const cancionSchema = new mongoose.Schema(
     titulo: { type: String, required: true, trim: true},
     duracion: { type: Number, required: true }, // Duracion en segundos
     generos: { type: [String], default: [] },
+    fecha_salida: { type: Date, default: null },
     isDeleted : { type: Boolean, default: false },
 
     // *** CAMBIO: Desnormalización del Álbum (título y portada) ***
@@ -19,7 +20,7 @@ const cancionSchema = new mongoose.Schema(
         _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artista", required: true },
         nombre: { type: String, required: true } // Para mostrar la canción con su artista
     }
-    
+
   },
   { 
     timestamps: true ,

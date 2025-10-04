@@ -5,7 +5,6 @@ const reviewSchema = new mongoose.Schema(
     rating: { type: Number, required: true, min: 1, max: 5 },
     like: { type: Boolean, default: false },
     comentario: { type: String, default: "" },
-    fecha: { type: Date, default: Date.now },
     isDeleted : { type: Boolean, default: false },
 
     autor: {
