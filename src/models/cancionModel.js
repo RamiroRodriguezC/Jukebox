@@ -2,21 +2,29 @@ const mongoose = require("mongoose");
 
 const cancionSchema = new mongoose.Schema(
   {
-    cancionID : { type: String, required: true, trim: true, autoIncrement: true },
     titulo: { type: String, required: true, trim: true},
     duracion: { type: Number, required: true }, // Duracion en segundos
     generos: { type: [String], default: [] },
+    isDeleted : { type: Boolean, default: false },
+
     album: {
-        type: albumSchema,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Album",
         required: true
     },
 
-    artista: {
-        type: artistaSchema,
+    autor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Artista",
         required: true
     }
   },
-  { timestamps: true }
+  { 
+    timestamps: true ,
+    collection: 'canciones' 
+    //hubo que agregar colecction : 'canciones' porque sino mongoose
+    //creaba la coleccion 'cancions' por el pluralizer.
+  }
 );
 
 module.exports = mongoose.model("Cancion", cancionSchema);
