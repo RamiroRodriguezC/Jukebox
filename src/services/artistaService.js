@@ -5,6 +5,12 @@ async function getAllArtistas() {
     return artistas;
 }
 
+async function getArtistaById(id) {
+    const artista = await Artista.findById(id);
+    return artista;
+}
+
 module.exports = {
     getAllArtistas,
+    getArtistaById,
 };

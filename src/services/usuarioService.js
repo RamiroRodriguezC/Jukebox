@@ -5,6 +5,12 @@ async function getAllUsuarios() {
     return usuarios;
 }
 
+async function getUsuarioById(id) {
+    const usuario = await Usuario.findById(id);
+    return usuario;
+}
+
 module.exports = {
     getAllUsuarios,
+    getUsuarioById,
 };
