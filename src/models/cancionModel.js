@@ -19,8 +19,20 @@ const cancionSchema = new mongoose.Schema(
     autor: {
         _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artista", required: true },
         nombre: { type: String, required: true } // Para mostrar la canción con su artista
-    }
+    },
 
+    reviews: [{
+      _id: { type: mongoose.Schema.Types.ObjectId, ref: "Review", required: true },
+      rating: { type: Number, required: true, min: 1, max: 5 },
+      like: { type: Boolean, default: false },
+      comentario: { type: String, default: "" },
+        
+      autor: {
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario", required: true },
+        username: { type: String, required: true }, 
+        url_profile_photo: { type: String, default: "" } // Asumiendo que se agrega al modelo Usuario
+      },
+    }],
   },
   { 
     timestamps: true ,

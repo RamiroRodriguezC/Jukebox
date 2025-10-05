@@ -1,4 +1,4 @@
-const  Cancion = require("../models/cancionModel");
+const Cancion = require("../models/cancionModel");
 
 async function getAllCanciones() {
     const canciones = await Cancion.find();
@@ -6,11 +6,19 @@ async function getAllCanciones() {
 }
 
 async function getCancionById(id) {
+    const canciones = await Cancion.findById(id);
+    return canciones;
+}
+
+async function getReviewsByCancionId(id) {
     const cancion = await Cancion.findById(id);
-    return cancion;
+    const reviews = cancion.reviews;
+    console.log(cancion, reviews);
+    return reviews;
 }
 
 module.exports = {
     getAllCanciones,
     getCancionById,
+    getReviewsByCancionId,
 };
