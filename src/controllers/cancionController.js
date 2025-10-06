@@ -1,6 +1,6 @@
 const cancionService = require("../services/cancionService");
 
-exports.getAll = async (req, res) => {
+async function getAll(req, res) {
   try {
     const canciones = await cancionService.getAllCanciones();
     res.json(canciones);
@@ -10,20 +10,36 @@ exports.getAll = async (req, res) => {
   }
 };
 
-exports.getById = async (req, res) => {
-    const id = req.params.id; 
-    console.log("ID recibido en la ruta:", id);
+async function searchCanciones(req, res){
+    const busqueda = req.query.q; 
+    
+    // El Controller maneja los errores de la petición HTTP y llama al Service
     try {
-        const cancion = await cancionService.getCancionById(id);
-        
-        if (!cancion) {
-            return res.status(404).json({ error: "Canción no encontrada" });
-        }
+        // Lógica de Negocio: Llama al Service con el dato de la petición
+        const resultados = await cancionService.buscarCanciones(busqueda);
 
-        res.status(200).json(cancion);
-    } catch (err) {
-        console.error("Error al obtener canción:", err);
+        // Respuesta HTTP
+        res.status(200).json(resultados);
 
-        res.status(500).json({ error: "Error interno del servidor al obtener la canción" });
+    } catch (error) {
+        // Si el Service lanzó un error (ej: fallo de DB), el Controller responde con 500
+        console.error("Error en el controller de búsqueda:", error.message);
+        res.status(500).json({ message: "Error interno del servidor." });
     }
+}
+
+async function getById(req, res) {
+  const id = req.params.id;
+  try {
+    const canciones = await cancionService.getCancionById(id);
+    res.json(canciones);
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener la cancion" });
+  }
+};
+
+module.exports = {
+    getAll,
+    getById,
+    searchCanciones,
 };

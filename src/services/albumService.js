@@ -2,6 +2,8 @@
 
 const Album = require("../models/albumModel");
 
+// FALTARIA EL MANEJO DE ERRORES
+
 /**
  * Función que obtiene todos los álbumes de la base de datos.
  * Es la única responsable de la interacción con el modelo de Mongoose.
