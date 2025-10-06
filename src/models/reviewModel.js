@@ -5,18 +5,20 @@ const reviewSchema = new mongoose.Schema(
     rating: { type: Number, required: true, min: 1, max: 5 },
     like: { type: Boolean, default: false },
     comentario: { type: String, default: "" },
-    fecha: { type: Date, default: Date.now },
     isDeleted : { type: Boolean, default: false },
 
     autor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Usuario",
-        required: true
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario", required: true },
+        username: { type: String, required: true }, 
+        url_profile_photo: { type: String, default: "" } // Asumiendo que se agrega al modelo Usuario
     },
+    
+    // *** CAMBIO: Desnormalización de Canción (título) ***
     cancion: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Cancion",
-        required: true
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Cancion", required: true },
+        titulo: { type: String, required: true } ,
+        // *** REFINAMIENTO: Agregar el nombre del autor de la canción ***
+        autor_nombre: { type: String, required: true } 
     }
 
   },

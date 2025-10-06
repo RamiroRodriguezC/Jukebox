@@ -4,7 +4,7 @@ const Album = require("../models/albumModel");
 // 💡 Importamos el MÓDULO DE SERVICIOS en lugar del Modelo
 const albumService = require("../services/albumService");
 
-exports.getAll = async (req, res) => {
+async function getAll(req, res) {
     try {
         // 1. Llama a la función del Servicio para obtener los datos
         //    El controlador NO SABE cómo se obtienen, solo pide el resultado.
@@ -22,7 +22,7 @@ exports.getAll = async (req, res) => {
     }
 };
 
-exports.getById = async (req, res) => {
+async function getById(req, res) {
   const id = req.params.id;
   try {
     const albums = await albumService.getAlbumById(id);
@@ -30,4 +30,9 @@ exports.getById = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Error al obtener el album" });
   }
+};
+
+module.exports = {
+    getAll,
+    getById,
 };

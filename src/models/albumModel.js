@@ -7,12 +7,19 @@ const albumSchema = new mongoose.Schema(
     url_portada: { type: String, default: "" },
     isDeleted : { type: Boolean, default: false },
 
+    // *** CAMBIO: Desnormalización del Artista (nombre) ***
     autor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Artista",
-        trim: true
-    }
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artista", required: true },
+        nombre: { type: String, required: true } // Nombre del artista
+    },
+
+    // *** CAMBIO: Embeber Tracklist (referencias parciales) ***
+    canciones: [{
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Cancion", required: true },
+        titulo: { type: String, required: true } // Título para la lista de canciones (tracklist)
+    }]
   },
+  
   { timestamps: true }
 );
 
