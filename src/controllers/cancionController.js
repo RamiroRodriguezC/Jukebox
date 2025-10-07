@@ -38,8 +38,14 @@ async function getById(req, res) {
   }
 };
 
+async function deleteCancion(req,res){
+  await cancionService.deleteCancion(req.params.id);
+  res.json({ message: "Cancion eliminada"});
+}
+
 module.exports = {
     getAll,
     getById,
     searchCanciones,
+    deleteCancion,
 };

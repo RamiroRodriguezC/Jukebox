@@ -1,6 +1,6 @@
 const artistaService = require("../services/artistaService");
 
-exports.getAll = async (req, res) => {
+async function getAll (req, res) {
   try {
     const artistas = await artistaService.getAllArtistas();
     res.json(artistas);
@@ -9,7 +9,7 @@ exports.getAll = async (req, res) => {
   }
 };
 
-exports.getById = async (req, res) => {
+async function getById (req, res) {
   const id = req.params.id;
   try {
     const artistas = await artistaService.getArtistaById(id);
@@ -17,4 +17,15 @@ exports.getById = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Error al obtener el artista" });
   }
+};
+
+async function deleteArtista(req,res){
+  await artistaService.deleteArtista(req.params.id);
+  res.json({ message: "Artista eliminado"});
+}
+
+module.exports = {
+  getAll,
+  getById,
+  deleteArtista,
 };

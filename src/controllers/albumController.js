@@ -32,7 +32,13 @@ async function getById(req, res) {
   }
 };
 
+async function deleteAlbum(req,res){
+  await albumService.deleteAlbum(req.params.id);
+  res.json({ message: "Album eliminado"});
+}
+
 module.exports = {
     getAll,
     getById,
+    deleteAlbum,
 };

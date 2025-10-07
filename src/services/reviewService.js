@@ -54,7 +54,6 @@ async function updateReview(id,data){
 }
 
 async function deleteReview(id){
-  console.log(id);
   const review = await Review.findById(id);
 
   if (!review || review.isDeleted) return null;

@@ -30,7 +30,6 @@ async function updateReview(req,res){
 }
 
 async function deleteReview(req,res){
-  console.log(req.params.id);
   await reviewService.deleteReview(req.params.id);
   res.json({ message: "Receta eliminada"});
 }

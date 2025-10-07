@@ -2,12 +2,12 @@ const  Cancion = require("../models/cancionModel");
 
 // FALTARIA EL MANEJO DE ERRORES
 async function getAllCanciones() {
-    const canciones = await Cancion.find();
+    const canciones = await Cancion.find({isDeleted : false});
     return canciones;
 }
 
 async function getCancionById(id) {
-    const cancion = await Cancion.findById(id);
+    const cancion = await Cancion.find({_id : id, isDeleted : false});
     return cancion;
 }
 
@@ -52,10 +52,20 @@ async function buscarCanciones(busqueda) {
     }
 }
 
+async function deleteCancion(id){
+    const cancion = await Cancion.findById(id);
+  
+    if (!cancion || cancion.isDeleted) return null;
+  
+    cancion.isDeleted = true;  
+    await cancion.save();
+  
+    return cancion;
+  }
 
 module.exports = {
     getAllCanciones,
     buscarCanciones,
     getCancionById,
-    
+    deleteCancion,
 };
