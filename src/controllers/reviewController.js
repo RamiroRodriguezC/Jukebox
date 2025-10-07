@@ -26,7 +26,7 @@ async function createReview(req,res) {
 
 async function updateReview(req,res){
   const reviewActualizada = await reviewService.updateReview(req.params.id, req.body);
-  res.status(201),json(reviewActualizada);
+  res.status(201).json(reviewActualizada);
 }
 
 async function deleteReview(req,res){

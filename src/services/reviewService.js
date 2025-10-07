@@ -47,8 +47,13 @@ async function createReview(data){
   return nuevaReview;
 }
 
+// FALTA IMPLEMENTAR FILTRO POR isDeleted
+// FALTA IMPLEMENTAR FILTRO DE CAMPOS MODIFICABLES
 async function updateReview(id,data){
-  const reviewActualizada = Review.update(id, data);
+  const reviewActualizada = await Review.findByIdAndUpdate(id, data);
+  
+  await reviewActualizada.save();
+
   if (!reviewActualizada) return res.status(404).json({ error: "Review no encontrada" });
   return reviewActualizada;
 }
