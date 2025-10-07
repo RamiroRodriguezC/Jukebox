@@ -4,12 +4,12 @@ const jwt = require("jsonwebtoken");
 
 // FALTARIA EL MANEJO DE ERRORES
 async function getAllUsuarios() {
-    const usuarios = await Usuario.find();
+    const usuarios = await Usuario.find({isDeleted : false});
     return usuarios;
 }
 
 async function getUsuarioById(id) {
-    const usuario = await Usuario.findById(id);
+    const usuario = await Usuario.find({_id : id, isDeleted : false});
     return usuario;
 }
 
@@ -44,10 +44,22 @@ function generateToken(usuario) {
     );
 }
 
+async function deleteUsuario(id){
+    const usuario = await Usuario.findById(id);
+  
+    if (!usuario || usuario.isDeleted) return null;
+  
+    usuario.isDeleted = true;  
+    await usuario.save();
+  
+    return usuario;
+  }
+
 module.exports = {
     getAllUsuarios,
     getUsuarioById,
     getUsuarioByEmail,
     validatePassword,
     generateToken,
+    deleteUsuario,
 };
