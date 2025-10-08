@@ -69,8 +69,14 @@ const login = async (req, res) => {
   }
 };
 
+async function deleteUsuario(req,res){
+  await usuarioService.deleteUsuario(req.params.id);
+  res.json({ message: "Usuario eliminado"});
+}
+
 module.exports = {
     getAll,
     getById,
     login,
+    deleteUsuario,
 };

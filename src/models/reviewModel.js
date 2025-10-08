@@ -4,7 +4,7 @@ const reviewSchema = new mongoose.Schema(
   {
     rating: { type: Number, required: true, min: 1, max: 5 },
     like: { type: Boolean, default: false },
-    comentario: { type: String, default: "" },
+    comentario: { type: String },
     isDeleted : { type: Boolean, default: false },
 
     autor: {
