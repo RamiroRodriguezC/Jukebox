@@ -1,4 +1,5 @@
 const  Cancion = require("../models/cancionModel");
+const globalService = require("./globalService");
 
 // FALTARIA EL MANEJO DE ERRORES
 async function getAllCanciones() {
@@ -53,15 +54,10 @@ async function buscarCanciones(busqueda) {
 }
 
 async function deleteCancion(id){
-    const cancion = await Cancion.findById(id);
-  
-    if (!cancion || cancion.isDeleted) return null;
-  
-    cancion.isDeleted = true;  
-    await cancion.save();
-  
-    return cancion;
-  }
+    // Reutilizamos la función genérica de 'soft delete' del servicio global
+        return await globalService.softDelete(Cancion, id);
+}
+
 
 module.exports = {
     getAllCanciones,

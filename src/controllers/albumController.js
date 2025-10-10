@@ -1,6 +1,3 @@
-const Album = require("../models/albumModel");
-// src/controllers/albumController.js (REFAC-TORIZADO)
-
 // 💡 Importamos el MÓDULO DE SERVICIOS en lugar del Modelo
 const albumService = require("../services/albumService");
 

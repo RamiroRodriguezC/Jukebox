@@ -1,4 +1,5 @@
 const Artista = require("../models/artistaModel");
+const globalService = require("./globalService");
 
 // FALTARIA EL MANEJO DE ERRORES
 async function getAllArtistas() {
@@ -12,15 +13,10 @@ async function getArtistaById(id) {
 }
 
 async function deleteArtista(id){
-    const artista = await Artista.findById(id);
-  
-    if (!artista || artista.isDeleted) return null;
-  
-    artista.isDeleted = true;  
-    await artista.save();
-  
-    return artista;
-  }
+    // Reutilizamos la función genérica de 'soft delete' del servicio global
+        return await globalService.softDelete(Artista, id);
+}
+
 
 module.exports = {
     getAllArtistas,

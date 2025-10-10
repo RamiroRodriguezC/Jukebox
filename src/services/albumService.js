@@ -1,5 +1,5 @@
 // src/services/albumService.js
-
+const globalService = require("./globalService");
 const Album = require("../models/albumModel");
 
 // FALTARIA EL MANEJO DE ERRORES
@@ -23,15 +23,11 @@ async function getAlbumById(id) {
 // Puedes añadir otras funciones aquí, como getAlbumById, createAlbum, etc.
 
 async function deleteAlbum(id){
-    const album = await Album.findById(id);
-  
-    if (!album || album.isDeleted) return null;
-  
-    album.isDeleted = true;  
-    await album.save();
-  
-    return album;
-  }
+    // Reutilizamos la función genérica de 'soft delete' del servicio global
+    return await globalService.softDelete(Album, id);
+
+}
+
 
 module.exports = {
     getAllAlbums,

@@ -1,6 +1,6 @@
 const artistaService = require("../services/artistaService");
 
-async function getAll (req, res) {
+async function getAll(req, res) {
   try {
     const artistas = await artistaService.getAllArtistas();
     res.json(artistas);
@@ -9,7 +9,7 @@ async function getAll (req, res) {
   }
 };
 
-async function getById (req, res) {
+async function getById(req, res) {
   const id = req.params.id;
   try {
     const artistas = await artistaService.getArtistaById(id);

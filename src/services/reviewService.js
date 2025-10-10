@@ -2,6 +2,8 @@ const  Review =  require("../models/reviewModel");
 const  Cancion = require("../models/cancionModel");
 const  Usuario = require("../models/usuarioModel");
 const reviewModel = require("../models/reviewModel");
+const globalService = require("./globalService");
+
 // FALTARIA EL MANEJO DE ERRORES
 async function getAllReviews() {
     const reviews = await Review.find({isDeleted : false});
@@ -59,14 +61,8 @@ async function updateReview(id,data){
 }
 
 async function deleteReview(id){
-  const review = await Review.findById(id);
-
-  if (!review || review.isDeleted) return null;
-
-  review.isDeleted = true;  
-  await review.save();
-
-  return review;
+    // Reutilizamos la función genérica de 'soft delete' del servicio global
+      return await globalService.softDelete(Review, id);
 }
 
 module.exports = {

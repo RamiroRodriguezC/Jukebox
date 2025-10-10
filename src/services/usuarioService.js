@@ -1,4 +1,6 @@
 const Usuario = require("../models/usuarioModel");
+const globalService = require("./globalService");
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -44,16 +46,31 @@ function generateToken(usuario) {
     );
 }
 
-async function deleteUsuario(id){
-    const usuario = await Usuario.findById(id);
-  
-    if (!usuario || usuario.isDeleted) return null;
-  
-    usuario.isDeleted = true;  
-    await usuario.save();
-  
-    return usuario;
+async function createUsuario(data){
+  const {mail, passwordHash, username, rol,  url_profile_photo,canciones_favoritas,} = data;
+
+  if (!mail|| !passwordHash || !username) {
+    return res.status(400).json({ error: "Faltan campos obligatorios" });
   }
+
+  const reviewData = ({rating, cancion, autor});
+
+  // Filtro para insertarlo SOLO si los valores no son undefined.
+  // evitar cargas undefined o null
+  if (like !== undefined) reviewData.like = like;
+  if (comentario !== undefined) reviewData.comentario = comentario;
+
+  const nuevaReview = await Review.create(reviewData);
+
+  return nuevaReview;
+}
+
+async function deleteUsuario(id){
+    // Reutilizamos la función genérica de 'soft delete' del servicio global
+    return await globalService.softDelete(Usuario, id);
+}
+
+
 
 module.exports = {
     getAllUsuarios,
@@ -61,5 +78,6 @@ module.exports = {
     getUsuarioByEmail,
     validatePassword,
     generateToken,
+    createUsuario,
     deleteUsuario,
 };
