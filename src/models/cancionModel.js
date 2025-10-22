@@ -8,18 +8,16 @@ const cancionSchema = new mongoose.Schema(
     fecha_salida: { type: Date, default: null },
     isDeleted : { type: Boolean, default: false },
 
-    // *** CAMBIO: Desnormalización del Álbum (título y portada) ***
     album: {
         _id: { type: mongoose.Schema.Types.ObjectId, ref: "Album", required: true },
         titulo: { type: String, required: true },
         url_portada: { type: String, default: "" }, // Para mostrar la carátula sin consultar el álbum
     },
 
-    // *** CAMBIO: Desnormalización del Artista (nombre) ***
-    autor: {
+    autores: [{
         _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artista", required: true },
         nombre: { type: String, required: true } // Para mostrar la canción con su artista
-    }
+    }]
 
   },
   { 
@@ -36,15 +34,15 @@ cancionSchema.index(
       // Campos a indexar para búsqueda de texto completo
         titulo: 'text', 
         'album.titulo': 'text',
-        'autor.nombre': 'text' 
+        'autores.nombre': 'text' 
     }, 
     { 
         // peso/jerarquia de los campos (va a priorizar las coincidencias en titulo, decreciendo
         // hacia el menor peso)
         weights: { 
             titulo: 3,
-             'album.titulo': 2,
-            'autor.nombre': 1 
+            'album.titulo': 2,
+            'autores.nombre': 1 
         },
         
          default_language: 'spanish', // Configura el idioma para la tokenización y stemming

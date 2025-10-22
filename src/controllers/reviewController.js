@@ -11,11 +11,12 @@ async function getAll(req, res) {
 
 async function getById(req, res){
   const id = req.params.id;
+  console.log("ID recibido en el CONTROLLER:", `'${id}'`);
   try {
     const reviews = await reviewService.getReviewById(id);
     res.json(reviews);
   } catch (err) {
-    res.status(500).json({ error: "Error al obtener el artista" });
+    res.status(500).json({ error: "Error al obtener la review" });
   }
 };
 

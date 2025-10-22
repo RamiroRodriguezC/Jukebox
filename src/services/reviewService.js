@@ -1,8 +1,16 @@
-const  Review =  require("../models/reviewModel");
+const  Review  =  require("../models/reviewModel");
 const  Cancion = require("../models/cancionModel");
 const  Usuario = require("../models/usuarioModel");
-const reviewModel = require("../models/reviewModel");
+const  Album   = require("../models/albumModel");
 const globalService = require("./globalService");
+
+console.log("MODELO ALBUM EN REVIEWSERVICE:", Album); 
+//MAPA DE MODELOS RESEÑABLES
+const modelosResenables = {
+  // Es lo mismo que 'Cancion': Cancion, cuando la key y el valor tienen el mismo nombre se puede abreviar asi
+  Cancion, 
+  Album,
+};
 
 // FALTARIA EL MANEJO DE ERRORES
 async function getAllReviews() {
@@ -11,39 +19,86 @@ async function getAllReviews() {
 }
 
 async function getReviewById(id) {
-  const reviews = await Review.find({_id : id, isDeleted : false});
+  console.log("ID recibido en el SERVICIO:", `'${id}'`);
+  
+  const reviews = await Review.findOne({ _id: '671801a0000000000000012c', isDeleted: false });
+
+  // --- AÑADE ESTE LOG PARA VER EL RESULTADO ---
+  console.log("asdasdasdsadasd");
+  console.log("Resultado de la consulta:", reviews);
+
   return reviews;
 }
 
 async function createReview(data){
-  console.log("entre aca");
-  const {rating, like, comentario, cancion, autor} = data;
-  console.log(rating + " " + like + " " + comentario + " " + cancion +  " " + autor);
+  // 1. Destructuramos las variables correctas del objeto 'data'.
+  const {rating, like, comentario, entidad_tipo, autor_id, entidad_id} = data;
 
-  if (!rating|| !cancion || !autor) {
-    return res.status(400).json({ error: "Faltan campos obligatorios" });
+  // 2. Validamos que los campos obligatorios estén presentes. En caso contrario, lanzamos un error.
+  if (!rating || !entidad_tipo || !entidad_id || !autor_id) {
+    const error = new Error("Faltan campos obligatorios...");
+    error.statusCode = 400; // Asignamos un código de estado al error
+    throw error; // ¡Lanzamos el error!
   }
 
-    // Validar existencia de cancion y autor
-    //Promise ejecuta las busquedas en paralelo, es mas rapido y no tiene que esperar a que se realize una y despues la otra
-    const [cancionExiste, autorExiste] = await Promise.all([
-      Cancion.findById(cancion),
-      Usuario.findById(autor)
-    ]);
+  // 3. Verificamos que 'entidad_tipo' sea válido y obtenemos el modelo correspondiente.
+  // Si tipoEntidad no existe como llave en el mapa, ModeloEntidad será 'undefined'.
+  const ModeloEntidad = modelosResenables[entidad_tipo];
+  if (!ModeloEntidad) {
+    const error = new Error(`El tipo de entidad '${entidad_tipo}' no es válido.`);
+    error.statusCode = 400;
+    throw error;
+  }
+
   
-    if (!cancionExiste || !autorExiste) {
-      const error = new Error("Canción o autor no encontrados");
+  // 4. Buscamos la entidad y el autor en paralelo para más eficiencia
+  const [entidad, autor] = await Promise.all([
+    ModeloEntidad.findOne({_id : entidad_id, isDeleted : false}), // .lean() hace la consulta más rápida porque devuelve un objeto JS simple
+    Usuario.findOne({_id : autor_id, isDeleted : false})
+  ]);
+  
+  // 5. Validamos que ambos existan
+  if (!entidad) {
+     const error = new Error(`La entidad de tipo '${entidad_tipo}' no fue encontrada.`);
       error.statusCode = 404;
       throw error;
+  }
+  if (!autor) {
+     const error = new Error(`No se encontro el auto con ID '${autor_id}'.`);
+      error.statusCode = 404;
+      throw error;
+  }
+
+  // 6. Construimos el objeto de la review con los datos desnormalizados
+  // los que estan solos es por que su key y es igual a su valor y se puede abreviar asi.
+  const reviewData = {
+    rating,
+    entidad_tipo,
+    entidad_id, // Guardamos la referencia real
+    like,
+    //isDeleted se agregara como default false
+    // Incrustamos los datos del autor
+    autor: {
+      _id: autor._id,
+      username: autor.username,
+      url_profile_photo: autor.url_profile_photo || ""
+    },
+
+    // Incrustamos los datos de la entidad
+    entidad_info: {
+      titulo: entidad.titulo,
+      // NOTA: Asumimos que tanto Cancion como Album tienen una estructura similar para obtener el nombre del artista y la portada.
+      // Si la estructura es diferente, aquí necesitarías un 'if (entidad_tipo === 'Cancion') { ... }'.
+      autor_nombre: entidad.artista_nombre || "Desconocido", // Asegúrate de que este campo exista en tus modelos
+      url_portada: entidad.url_portada || ""
     }
+  };
 
-  const reviewData = ({rating, cancion, autor});
-
-  // Filtro para insertarlo SOLO si los valores no son undefined.
-  // evitar cargas undefined o null
-  if (like !== undefined) reviewData.like = like;
+  // 7. Agregamos los campos opcionales, si fueron proporcionados
+  //por ahora solo es el comentario
   if (comentario !== undefined) reviewData.comentario = comentario;
 
+  // 8. Creamos y guardamos la nueva review en la base de datos
   const nuevaReview = await Review.create(reviewData);
 
   return nuevaReview;
@@ -52,11 +107,21 @@ async function createReview(data){
 // FALTA IMPLEMENTAR FILTRO POR isDeleted
 // FALTA IMPLEMENTAR FILTRO DE CAMPOS MODIFICABLES
 async function updateReview(id,data){
-  const reviewActualizada = await Review.findByIdAndUpdate(id, data);
+  console.log("Datos recibidos para actualizar la review: ", data);
+  const reviewActualizada = await Review.findById(id);
+
+  if (!reviewActualizada) return res.status(404).json({ error: "Review no encontrada" });
+ 
+  for (const key in data) {
+    console.log(`Procesando campo: ${key} con valor: ${data[key]}`);
+    if (key == undefined) continue; // Saltar campos undefined
+    reviewActualizada[key] = data[key];
+  }
+  
   
   await reviewActualizada.save();
 
-  if (!reviewActualizada) return res.status(404).json({ error: "Review no encontrada" });
+
   return reviewActualizada;
 }
 

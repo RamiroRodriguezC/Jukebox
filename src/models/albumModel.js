@@ -8,10 +8,10 @@ const albumSchema = new mongoose.Schema(
     isDeleted : { type: Boolean, default: false },
 
     // *** CAMBIO: Desnormalización del Artista (nombre) ***
-    autor: {
+    autores: [{
         _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artista", required: true },
         nombre: { type: String, required: true } // Nombre del artista
-    },
+    }],
 
     // *** CAMBIO: Embeber Tracklist (referencias parciales) ***
     canciones: [{
