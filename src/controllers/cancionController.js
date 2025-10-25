@@ -32,20 +32,26 @@ async function getById(req, res) {
   const id = req.params.id;
   try {
     const canciones = await cancionService.getCancionById(id);
-    res.json(canciones);
+    res.status(200).json(canciones);
   } catch (err) {
     res.status(500).json({ error: "Error al obtener la cancion" });
   }
 };
 
+/* async function updateCancion(req,res){
+    const cancionActualizada = await cancionService.updateCancion(req.params.id, req.body);
+    res.status(200).json(cancionActualizada);
+} */
+
 async function deleteCancion(req,res){
   await cancionService.deleteCancion(req.params.id);
-  res.json({ message: "Cancion eliminada"});
+  res.status(200).json({ message: "Cancion eliminada"});
 }
 
 module.exports = {
     getAll,
     getById,
     searchCanciones,
+    //updateCancion,
     deleteCancion,
 };

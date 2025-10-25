@@ -108,7 +108,7 @@ async function createReview(data){
 // FALTA IMPLEMENTAR FILTRO DE CAMPOS MODIFICABLES
 async function updateReview(id,data){
     // Reutilizamos la función genérica de 'update' del servicio global
-      return await globalService.update(Review, id, data);
+    return await globalService.update(Review, id, data);
 }
 
 async function deleteReview(id){

@@ -53,6 +53,11 @@ async function buscarCanciones(busqueda) {
     }
 }
 
+/* async function updateCancion(id, data){
+    // Reutilizamos la función genérica de 'update' del servicio global
+        return await globalService.update(Cancion, id, data);
+} */
+
 async function deleteCancion(id){
     // Reutilizamos la función genérica de 'soft delete' del servicio global
         return await globalService.softDelete(Cancion, id);
@@ -63,5 +68,6 @@ module.exports = {
     getAllCanciones,
     buscarCanciones,
     getCancionById,
+   // updateCancion,
     deleteCancion,
 };

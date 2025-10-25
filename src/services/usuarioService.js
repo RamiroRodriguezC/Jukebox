@@ -1,4 +1,5 @@
 const Usuario = require("../models/usuarioModel");
+const Review = require("../models/reviewModel");
 const globalService = require("./globalService");
 
 const bcrypt = require("bcrypt");
@@ -83,11 +84,38 @@ async function createUsuario(data){
 }
 
 async function updateUsuario(id, data){
-    // Si se proporciona una nueva contraseña, hashearla antes de actualizar
-    data.passwordHash = data.password ? await bcrypt.hash(data.password, 12) : undefined;
+    try {
+      // Si se proporciona una nueva contraseña, hashearla antes de actualizar
+      if (data.password) data.passwordHash = await bcrypt.hash(data.password, 12);
+      delete data.password; // Eliminar el campo 'password' para evitar guardarlo directamente
+
+      // Reutilizamos la función genérica de 'update' del servicio global
+      const usuarioActualizado = await globalService.update(Usuario, id, data);
+
+      // Si el await da error rompe y esto no se ejecuta
+      const dataToSync = {};
+
+      // Si username y profilePhoto da Thruty (osea que no es null, undefined, false, 0 o cadena vacia) 
+      // los agregamos al objeto dataToSync para actualizar las reviews.
+      if (data.username) dataToSync["autor.username"] = data.username ;
+      
+      if (data.url_profile_photo) dataToSync["autor.url_profile_photo"] = data.url_profile_photo ;
+
+      if (Object.keys(dataToSync).length > 0) {
+            await Review.updateMany(
+                { "autor._id": id },  // Filtro (Las que coincidan con el autor.id)
+                // el set es para que no borro o toque otros campos que no quiero actualizar
+                { $set: dataToSync } // Update (los campos a actualizar) 
+            );
+      }
+
+      return usuarioActualizado;
+
     // Reutilizamos la función genérica de 'update' del servicio global
-    return await globalService.update(Usuario, id, data);
-}
+    }catch (error) {
+        throw error;
+    }
+  }
 
 async function deleteUsuario(id){
     // Reutilizamos la función genérica de 'soft delete' del servicio global

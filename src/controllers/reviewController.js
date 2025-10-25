@@ -32,7 +32,7 @@ async function updateReview(req,res){
 
 async function deleteReview(req,res){
   await reviewService.deleteReview(req.params.id);
-  res.json({ message: "Receta eliminada"});
+  res.status(201).json({ message: "Receta eliminada"});
 }
 /*
 exports.updateReceta = (req, res) => {

@@ -23,39 +23,44 @@ async function softDelete(Model, id) {
 }
 
 /**
+ * 
+ * @param {object} documento - El documento de Mongoose (Usuario, Review, Cancion, etc.). 
+ * @returns {boolean} Retorna true si está eliminado, false si no, null si no existe.
+ */
+async function isDeleted(documento) {
+    return documento.isDeleted;
+}   
+
+/**
  * Realiza un update en un documento de Mongoose.
  *  @param {object} Model - El modelo de Mongoose (Usuario, Review, Cancion, etc.).
  *  @param {string} id - El ID del documento a actualizar.
  *  @param {object} data - Objeto con los campos a actualizar.
  *  @returns {Promise<object|null>} El documento actualizado o null si no se encontró.
  */
+
 async function update(Model, id, data) {
 
-    // Buscar el documento por ID
-    const modeloActualizado = await Model.findById(id);
-
-    // Si no se encuentra, lanzar un error
-    if (!modeloActualizado) {
-        throw new Error(`${Model.modelName} no encontrad@`);
-    }
-    
-    // Actualizar solo los campos proporcionados en 'data', si por ejemplo no vino el username, no lo actualizamos
-    for (const key in data) {
-        console.log(`Procesando campo: ${key} con valor: ${data[key]}`);
-        if (!(data[key] == undefined)){ // Saltar campos undefined
-            modeloActualizado[key] = data[key];
-        }
+    const documento = await Model.findById(id);
+    // si el documento existe y si no esta eliminado, hacemos el update
+    if (!documento){
+        throw new Error(`${Model.modelName} no encontrad@ (ID: ${id})`);
+    }    
+    // Si el documento está marcado como eliminado, lanzamos un error
+    if (await isDeleted(documento)) {
+        throw new Error(`${Model.modelName} no esta disponible o ha sido eliminad@ (ID: ${id})`);
     }
 
-    // Guardar los cambios en la base de datos
-    await modeloActualizado.save();
-    
-    // Devolver el documento actualizado
-    return modeloActualizado;
-}
+    documento.set(data); // Actualizamos la variable en memoria (con los nuevos datos)
+    console.log(`Actualizando ${Model.modelName} con ID ${id} con los datos:`, data);
+    await documento.save();
+    console.log(`${Model.modelName} con ID ${id} actualizado correctamente.`);
+    return documento;
+} 
 
 module.exports = {
     softDelete,
+    isDeleted,
     update,
 };
 
