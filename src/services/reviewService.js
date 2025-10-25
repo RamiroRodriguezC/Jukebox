@@ -3,6 +3,7 @@ const  Cancion = require("../models/cancionModel");
 const  Usuario = require("../models/usuarioModel");
 const  Album   = require("../models/albumModel");
 const globalService = require("./globalService");
+const { Query } = require("mongoose");
 
 console.log("MODELO ALBUM EN REVIEWSERVICE:", Album); 
 //MAPA DE MODELOS RESEÑABLES
@@ -12,22 +13,14 @@ const modelosResenables = {
   Album,
 };
 
-// FALTARIA EL MANEJO DE ERRORES
 async function getAllReviews() {
-    const reviews = await Review.find({isDeleted : false});
+    const reviews = await globalService.getDocuments(Review);
     return reviews;
 }
-
+// Devuelve un array con el usuario que tiene el id pasado por parametro
 async function getReviewById(id) {
-  console.log("ID recibido en el SERVICIO:", `'${id}'`);
-  
-  const reviews = await Review.findOne({ _id: '671801a0000000000000012c', isDeleted: false });
-
-  // --- AÑADE ESTE LOG PARA VER EL RESULTADO ---
-  console.log("asdasdasdsadasd");
-  console.log("Resultado de la consulta:", reviews);
-
-  return reviews;
+    const reviews = await globalService.getDocument(Review, { _id: id });
+    return reviews;
 }
 
 async function createReview(data){
@@ -116,10 +109,33 @@ async function deleteReview(id){
       return await globalService.softDelete(Review, id);
 }
 
+async function getSongReviews(id){
+    const query = {entidad_tipo : 'Cancion', entidad_id : id, isDeleted : false};
+    const  reviews = await globalService.getDocuments(Review, query);
+    return reviews;
+}
+
+async function getAlbumReviews(id){
+    const query = {entidad_tipo : 'Album', entidad_id : id, isDeleted : false};
+    const  reviews = await globalService.getDocuments(Review, query);
+    return reviews;
+}
+
+async function getUserReviews(id){
+    const query = {entidad_tipo : 'Usuario', entidad_id : id, isDeleted : false};
+    const  reviews = await globalService.getDocuments(Review, query);
+    return reviews;
+}
+
+
+
 module.exports = {
     getAllReviews,
     getReviewById,
     createReview,
     updateReview,
     deleteReview,
+    getSongReviews,
+    getAlbumReviews,
+    getUserReviews,
 };

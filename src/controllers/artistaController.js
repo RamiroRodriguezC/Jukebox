@@ -5,7 +5,7 @@ async function getAll(req, res) {
     const artistas = await artistaService.getAllArtistas();
     res.json(artistas);
   } catch (err) {
-    res.status(500).json({ error: "Error al obtener Artistas" });
+    res.status(500).json({ error: err.message });
   }
 };
 
@@ -15,7 +15,7 @@ async function getById(req, res) {
     const artistas = await artistaService.getArtistaById(id);
     res.json(artistas);
   } catch (err) {
-    res.status(500).json({ error: "Error al obtener el artista" });
+    res.status(500).json({ error: err.message });
   }
 };
 

@@ -3,13 +3,8 @@ const albumService = require("../services/albumService");
 
 async function getAll(req, res) {
     try {
-        // 1. Llama a la función del Servicio para obtener los datos
-        //    El controlador NO SABE cómo se obtienen, solo pide el resultado.
-        const albums = await albumService.getAllAlbums(); 
-        
-        // 2. Maneja la respuesta HTTP (200 OK)
-        res.status(200).json(albums); 
-    
+        const albums = await albumService.getAllAlbums();
+        res.json(albums); 
     } catch (err) {
         // 3. Maneja el error HTTP (500 Internal Server Error)
         console.error("Error al obtener álbumes:", err); 
@@ -22,7 +17,7 @@ async function getAll(req, res) {
 async function getById(req, res) {
   const id = req.params.id;
   try {
-    const albums = await albumService.getAlbumById(id);
+    const albums = await albumService.getAlbumById(id); 
     res.json(albums);
   } catch (err) {
     res.status(500).json({ error: "Error al obtener el album" });

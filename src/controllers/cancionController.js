@@ -6,7 +6,17 @@ async function getAll(req, res) {
     res.json(canciones);
   } catch (err) {
         console.error("Error en la consulta de Canciones:", err); 
-    res.status(500).json({ error: "Error al obtener Canciones" });
+    res.status(500).json({ error: err.message });
+  }
+};
+
+async function getById(req, res) {
+  const id = req.params.id;
+  try {
+    const canciones = await cancionService.getCancionById(id);
+    res.status(200).json(canciones);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
@@ -27,16 +37,6 @@ async function searchCanciones(req, res){
         res.status(500).json({ message: "Error interno del servidor." });
     }
 }
-
-async function getById(req, res) {
-  const id = req.params.id;
-  try {
-    const canciones = await cancionService.getCancionById(id);
-    res.status(200).json(canciones);
-  } catch (err) {
-    res.status(500).json({ error: "Error al obtener la cancion" });
-  }
-};
 
 /* async function updateCancion(req,res){
     const cancionActualizada = await cancionService.updateCancion(req.params.id, req.body);

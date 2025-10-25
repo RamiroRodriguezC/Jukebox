@@ -5,7 +5,7 @@ async function getAll(req, res) {
     const reviews = await reviewService.getAllReviews();
     res.json(reviews);
   } catch (err) {
-    res.status(500).json({ error: "Error al obtener Reviews" });
+    res.status(500).json({error: err.message });
   }
 };
 
@@ -16,7 +16,7 @@ async function getById(req, res){
     const reviews = await reviewService.getReviewById(id);
     res.json(reviews);
   } catch (err) {
-    res.status(500).json({ error: "Error al obtener la review" });
+    res.status(500).json({ error: err.message });
   }
 };
 
@@ -34,21 +34,24 @@ async function deleteReview(req,res){
   await reviewService.deleteReview(req.params.id);
   res.status(201).json({ message: "Receta eliminada"});
 }
-/*
-exports.updateReceta = (req, res) => {
-  const id = parseInt(req.params.id);
-  const actualizada = Receta.update(id, req.body);
-  if (!actualizada) return res.status(404).json({ error: "Receta no encontrada" });
-  res.json(actualizada);
-};
 
-exports.deleteReceta = (req, res) => {
-  const id = parseInt(req.params.id);
-  const eliminada = Receta.remove(id);
-  if (!eliminada) return res.status(404).json({ error: "Receta no encontrada" });
-  res.json({ message: "Receta eliminada" });
-};
-*/
+async function getSongReviews(req,res){
+    try {
+        const reviews = await reviewService.getSongReviews(req.params.id);
+        res.status(200).json(reviews);
+    } catch (err) {
+        res.status(500).json({ error: `Error al obtener las reviews de la canción: \n ${err.message}` });
+    }
+}
+
+async function getUserReviews(req,res){
+    try {
+        const reviews = await reviewService.getUserReviews(req.params.id);
+        res.status(200).json(reviews);
+    } catch (err) {
+        res.status(500).json({ error: `Error al obtener las reviews del usuario: \n ${err.message}` });
+    }
+}
 
 module.exports = {
     getAll,
@@ -56,4 +59,6 @@ module.exports = {
     createReview,
     updateReview,
     deleteReview,
+    getSongReviews,
+    getUserReviews,
 };

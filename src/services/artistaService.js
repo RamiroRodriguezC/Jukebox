@@ -3,12 +3,12 @@ const globalService = require("./globalService");
 
 // FALTARIA EL MANEJO DE ERRORES
 async function getAllArtistas() {
-    const artistas = await Artista.find({isDeleted : false});
+    const artistas = await globalService.getDocuments(Artista);
     return artistas;
 }
 
 async function getArtistaById(id) {
-    const artista = await Artista.find({_id : id, isDeleted : false});
+    const artista = await globalService.getDocument(Artista, { _id: id });
     return artista;
 }
 
@@ -19,7 +19,7 @@ async function deleteArtista(id){
 
 
 module.exports = {
-    getAllArtistas,
-    getArtistaById,
     deleteArtista,
+    getAllArtistas,
+    getArtistaById, 
 };

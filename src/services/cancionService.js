@@ -3,12 +3,12 @@ const globalService = require("./globalService");
 
 // FALTARIA EL MANEJO DE ERRORES
 async function getAllCanciones() {
-    const canciones = await Cancion.find({isDeleted : false});
+    const canciones = await globalService.getDocuments(Cancion);
     return canciones;
 }
 
 async function getCancionById(id) {
-    const cancion = await Cancion.find({_id : id, isDeleted : false});
+    const cancion = await globalService.getDocument(Cancion, { _id: id });
     return cancion;
 }
 

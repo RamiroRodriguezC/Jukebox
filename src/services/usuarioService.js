@@ -5,21 +5,29 @@ const globalService = require("./globalService");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// FALTARIA EL MANEJO DE ERRORES
+
 async function getAllUsuarios() {
-    const usuarios = await Usuario.find({isDeleted : false});
+    const usuarios = await globalService.getDocuments(Usuario);
     return usuarios;
 }
-
+// Devuelve un array con el usuario que tiene el id pasado por parametro
 async function getUsuarioById(id) {
-    const usuario = await Usuario.find({_id : id, isDeleted : false});
-    return usuario;
+  try {
+    const usuarios = await globalService.getDocument(Usuario, { _id: id });
+    return usuarios;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
-
+// Devuelve el usuario que tiene el mail pasado por parametro (al ser unique, solo habra uno o ninguno)
 async function getUsuarioByEmail(mail) {
-    const usuario = await Usuario.findOne({ mail });
-    return usuario;
+    try {
+      const usuario = await globalService.getDocument(Usuario, { mail: mail });
+      return usuario;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 async function validatePassword(password, usuario) {

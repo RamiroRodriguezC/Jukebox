@@ -10,6 +10,9 @@ const reviewRoutes = require("./routes/reviewRoutes");
 
 const connectDB = require("./config/db");
 
+
+const usuarioService = require("./services/usuarioService");
+
 const app = express();
 app.use(cors()); // middleware para...
 app.use(express.json()); // middleware para...

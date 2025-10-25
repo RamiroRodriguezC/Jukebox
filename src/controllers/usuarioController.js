@@ -5,7 +5,7 @@ async function getAll(req, res) {
     const usuarios = await usuarioService.getAllUsuarios();
     res.json(usuarios);
   } catch (err) {
-    res.status(500).json({ error: "Error al obtener Usuarios" });
+    res.status(500).json({ error: err.message });
   }
 };
 
@@ -15,7 +15,7 @@ async function getById(req, res) {
     const usuarios = await usuarioService.getUsuarioById(id);
     res.json(usuarios);
   } catch (err) {
-    res.status(500).json({ error: "Error al obtener el artista" });
+    res.status(500).json({ error: err.message });
   }
 };
 
@@ -30,7 +30,6 @@ const login = async (req, res) => {
     // PASO 1
     // Extraer email y password del body
     const { mail, password } = req.body;
-    console.log(`La contraseña aca en el login, dentro del controller es: ` + password);
     // Buscar usuario por email
 
     // PASO 2 -> VALIDAR CREDENCIALES (MAIL)
