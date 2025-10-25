@@ -107,22 +107,8 @@ async function createReview(data){
 // FALTA IMPLEMENTAR FILTRO POR isDeleted
 // FALTA IMPLEMENTAR FILTRO DE CAMPOS MODIFICABLES
 async function updateReview(id,data){
-  console.log("Datos recibidos para actualizar la review: ", data);
-  const reviewActualizada = await Review.findById(id);
-
-  if (!reviewActualizada) return res.status(404).json({ error: "Review no encontrada" });
- 
-  for (const key in data) {
-    console.log(`Procesando campo: ${key} con valor: ${data[key]}`);
-    if (key == undefined) continue; // Saltar campos undefined
-    reviewActualizada[key] = data[key];
-  }
-  
-  
-  await reviewActualizada.save();
-
-
-  return reviewActualizada;
+    // Reutilizamos la función genérica de 'update' del servicio global
+      return await globalService.update(Review, id, data);
 }
 
 async function deleteReview(id){

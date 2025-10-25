@@ -69,6 +69,15 @@ const login = async (req, res) => {
   }
 };
 
+async function createUsuario(req,res) {
+      const usuario = await usuarioService.createUsuario(req.body);
+      res.status(201).json(usuario);
+}
+
+async function updateUsuario(req,res){
+  const usuarioActualizado = await usuarioService.updateUsuario(req.params.id, req.body);
+  res.status(201).json(usuarioActualizado);
+}
 async function deleteUsuario(req,res){
   await usuarioService.deleteUsuario(req.params.id);
   res.json({ message: "Usuario eliminado"});
@@ -78,5 +87,8 @@ module.exports = {
     getAll,
     getById,
     login,
+    createUsuario,
+    updateUsuario,
     deleteUsuario,
+    
 };

@@ -47,22 +47,46 @@ function generateToken(usuario) {
 }
 
 async function createUsuario(data){
-  const {mail, passwordHash, username, rol,  url_profile_photo,canciones_favoritas,} = data;
+  // 1. Destructuramos las variables correctas del objeto 'data'.
+  // Basicamente agarra como ese diccionario que vino el req.body y le asigna los valores a las variables correspondientes
+  const {mail, password, username, rol, url_profile_photo} = data;
 
-  if (!mail|| !passwordHash || !username) {
-    return res.status(400).json({ error: "Faltan campos obligatorios" });
+  // 2. Validamos que los campos obligatorios estén presentes. En caso contrario, lanzamos un error.
+  if (!mail || !password || !username || !rol) {
+    const error = new Error("Faltan campos obligatorios...");
+    error.statusCode = 400; // Asignamos un código de estado al error
+    throw error; // ¡Lanzamos el error!
   }
 
-  const reviewData = ({rating, cancion, autor});
+  // 3. Hasheamos la contraseña antes de guardarla
+    const saltRounds = 12; 
+    // número de veces que la función de hash se aplica a una contraseña. 
+    const passwordHash = await bcrypt.hash(password, saltRounds);
+    // 4. Construimos el objeto de la review con los datos desnormalizados
+    // los que estan solos es por que su key y es igual a su valor y se puede abreviar asi.
+  const userData = {
+    mail,           // mail : mail
+    passwordHash,   // passwordHash : passwordHash
+    username,       // username : username
+    rol,            // rol : rol
+    //isDeleted se agregara como default false
+  };
 
-  // Filtro para insertarlo SOLO si los valores no son undefined.
-  // evitar cargas undefined o null
-  if (like !== undefined) reviewData.like = like;
-  if (comentario !== undefined) reviewData.comentario = comentario;
+  // 5. Agregamos los campos opcionales, si fueron proporcionados
+  //por ahora solo es el url_profile_photo
+  if (url_profile_photo !== undefined) userData.url_profile_photo = url_profile_photo;
 
-  const nuevaReview = await Review.create(reviewData);
+  // 6. Creamos y guardamos la nueva review en la base de datos
+  const nuevaUsuario = await Usuario.create(userData);
 
-  return nuevaReview;
+  return nuevaUsuario;
+}
+
+async function updateUsuario(id, data){
+    // Si se proporciona una nueva contraseña, hashearla antes de actualizar
+    data.passwordHash = data.password ? await bcrypt.hash(data.password, 12) : undefined;
+    // Reutilizamos la función genérica de 'update' del servicio global
+    return await globalService.update(Usuario, id, data);
 }
 
 async function deleteUsuario(id){
@@ -79,5 +103,6 @@ module.exports = {
     validatePassword,
     generateToken,
     createUsuario,
+    updateUsuario,
     deleteUsuario,
 };
