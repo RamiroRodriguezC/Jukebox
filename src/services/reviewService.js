@@ -110,19 +110,19 @@ async function deleteReview(id){
 }
 
 async function getSongReviews(id){
-    const query = {entidad_tipo : 'Cancion', entidad_id : id, isDeleted : false};
+    const query = {entidad_tipo : 'Cancion', entidad_id : id};
     const  reviews = await globalService.getDocuments(Review, query);
     return reviews;
 }
 
 async function getAlbumReviews(id){
-    const query = {entidad_tipo : 'Album', entidad_id : id, isDeleted : false};
+    const query = {entidad_tipo : 'Album', entidad_id : id};
     const  reviews = await globalService.getDocuments(Review, query);
     return reviews;
 }
 
 async function getUserReviews(id){
-    const query = {entidad_tipo : 'Usuario', entidad_id : id, isDeleted : false};
+    const query = {entidad_tipo : 'Usuario', entidad_id : id};
     const  reviews = await globalService.getDocuments(Review, query);
     return reviews;
 }
