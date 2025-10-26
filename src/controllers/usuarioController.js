@@ -78,6 +78,16 @@ async function addCancionAFavorito(req,res) {
   }
 }
 
+async function deleteCancionEnFavorito(req, res) {
+  try {
+    const { idUser, idCancion } = req.params;
+    const usuarioActualizado = await usuarioService.removeFavorito(idUser, idCancion);
+    res.status(200).json(usuarioActualizado);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 async function createUsuario(req,res) {
       const usuario = await usuarioService.createUsuario(req.body);
       res.status(201).json(usuario);
@@ -100,4 +110,5 @@ module.exports = {
     updateUsuario,
     deleteUsuario,
     addCancionAFavorito,
+    deleteCancionEnFavorito,
 };

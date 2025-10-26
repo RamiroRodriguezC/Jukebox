@@ -84,6 +84,17 @@ async function addFavorito(idUser, idCancion) {
   return usuario;
 }
 
+async function removeFavorito(idUser, idCancion) {
+  const usuario = await Usuario.findById(idUser);
+  if (!usuario) throw new Error("Usuario no encontrado");
+
+  usuario.canciones_favoritas = usuario.canciones_favoritas.filter(
+    fav => fav._id.toString() !== idCancion
+  );
+  await usuario.save();
+
+  return usuario;
+}
 
 async function createUsuario(data){
   // 1. Destructuramos las variables correctas del objeto 'data'.
@@ -172,4 +183,5 @@ module.exports = {
     updateUsuario,
     deleteUsuario,
     addFavorito,
+    removeFavorito,
 };
