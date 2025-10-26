@@ -1,5 +1,6 @@
 const Usuario = require("../models/usuarioModel");
 const Review = require("../models/reviewModel");
+const Cancion = require("../models/cancionModel");
 const globalService = require("./globalService");
 
 const bcrypt = require("bcrypt");
@@ -54,6 +55,35 @@ function generateToken(usuario) {
       { expiresIn: "30000" } // 30 seg. para probar. Para que expire en 1 hora, colocar '1h'
     );
 }
+
+async function addFavorito(idUser, idCancion) {
+  const usuario = await Usuario.findById(idUser);
+  if (!usuario) throw new Error("Usuario no encontrado");
+
+  // Traer la canción para obtener los datos
+  const cancion = await Cancion.findById(idCancion);
+  if (!cancion) throw new Error("Canción no encontrada");
+
+  // Asegurarse de que favoritos sea un array
+  if (!usuario.canciones_favoritas) {
+    usuario.canciones_favoritas = [];
+  }
+
+  // Evitar duplicados comparando _id
+  const yaExiste = usuario.canciones_favoritas.some(fav => fav._id.equals(idCancion));
+  if (!yaExiste) {
+    usuario.canciones_favoritas.push({
+      _id: idCancion,
+      titulo: cancion.titulo,
+      autor_nombre: cancion.autor_nombre || "Desconocido",
+      album_portada: cancion.album_portada || ""
+    });
+    await usuario.save();
+  }
+
+  return usuario;
+}
+
 
 async function createUsuario(data){
   // 1. Destructuramos las variables correctas del objeto 'data'.
@@ -141,4 +171,5 @@ module.exports = {
     createUsuario,
     updateUsuario,
     deleteUsuario,
+    addFavorito,
 };

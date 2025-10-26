@@ -68,6 +68,16 @@ const login = async (req, res) => {
   }
 };
 
+async function addCancionAFavorito(req,res) {
+  try{
+    const {idUser, idCancion} = req.params;
+    const usuarioActualizado = await usuarioService.addFavorito(idUser, idCancion);
+    res.status(201).json(usuarioActualizado);
+  }catch(error){
+    res.status(500).json({ message: error.message });
+  }
+}
+
 async function createUsuario(req,res) {
       const usuario = await usuarioService.createUsuario(req.body);
       res.status(201).json(usuario);
@@ -89,5 +99,5 @@ module.exports = {
     createUsuario,
     updateUsuario,
     deleteUsuario,
-    
+    addCancionAFavorito,
 };
