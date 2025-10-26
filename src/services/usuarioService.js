@@ -84,7 +84,7 @@ async function addFavorito(idUser, idCancion) {
   return usuario;
 }
 
-async function removeFavorito(idUser, idCancion) {
+async function deleteFavorito(idUser, idCancion) {
   const usuario = await Usuario.findById(idUser);
   if (!usuario) throw new Error("Usuario no encontrado");
 
@@ -183,5 +183,5 @@ module.exports = {
     updateUsuario,
     deleteUsuario,
     addFavorito,
-    removeFavorito,
+    deleteFavorito,
 };
