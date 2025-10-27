@@ -57,12 +57,10 @@ function generateToken(usuario) {
 }
 
 async function addFavorito(idUser, idCancion) {
-  const usuario = await Usuario.findById(idUser);
-  if (!usuario) throw new Error("Usuario no encontrado");
+  const usuario = await Usuario.getDocument({id : idUser});
 
   // Traer la canción para obtener los datos
-  const cancion = await Cancion.findById(idCancion);
-  if (!cancion) throw new Error("Canción no encontrada");
+  const cancion = await Cancion.getDocument({id : idCancion});
 
   // Asegurarse de que favoritos sea un array
   if (!usuario.canciones_favoritas) {
@@ -85,12 +83,12 @@ async function addFavorito(idUser, idCancion) {
 }
 
 async function deleteFavorito(idUser, idCancion) {
-  const usuario = await Usuario.findById(idUser);
-  if (!usuario) throw new Error("Usuario no encontrado");
+  const usuario = await Usuario.getDocument({id : idUser});
 
   usuario.canciones_favoritas = usuario.canciones_favoritas.filter(
     fav => fav._id.toString() !== idCancion
   );
+
   await usuario.save();
 
   return usuario;
