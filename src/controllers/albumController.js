@@ -4,7 +4,7 @@ const albumService = require("../services/albumService");
 async function getAll(req, res) {
     try {
         const albums = await albumService.getAllAlbums();
-        res.json(artistas); 
+        res.json(albums); 
     } catch (err) {
         // 3. Maneja el error HTTP (500 Internal Server Error)
         console.error("Error al obtener álbumes:", err); 
