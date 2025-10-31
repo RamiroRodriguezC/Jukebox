@@ -47,20 +47,21 @@ function generateToken(usuario) {
     const payload = {
         id: usuario._id,
         email: usuario.mail,
+        rol: usuario.rol
     }
 
     return jwt.sign(
       payload,
       process.env.JWT_SECRET, // Ver .env o variable de entorno en produccion
-      { expiresIn: "30000" } // 30 seg. para probar. Para que expire en 1 hora, colocar '1h'
+      { expiresIn: "3000000" } // 30 seg. para probar. Para que expire en 1 hora, colocar '1h'
     );
 }
 
 async function addFavorito(idUser, idCancion) {
-  const usuario = await Usuario.getDocument({id : idUser});
+  const usuario = await globalService.getDocument(Usuario,{_id : idUser});
 
   // Traer la canción para obtener los datos
-  const cancion = await Cancion.getDocument({id : idCancion});
+  const cancion = await globalService.getDocument(Cancion, {_id : idCancion});
 
   // Asegurarse de que favoritos sea un array
   if (!usuario.canciones_favoritas) {
@@ -83,8 +84,8 @@ async function addFavorito(idUser, idCancion) {
 }
 
 async function deleteFavorito(idUser, idCancion) {
-  const usuario = await Usuario.getDocument({id : idUser});
-
+  const usuario = await globalService.getDocument(Usuario, {_id : idUser});
+console.log("Usuario antes de eliminar favorito:", usuario);
   usuario.canciones_favoritas = usuario.canciones_favoritas.filter(
     fav => fav._id.toString() !== idCancion
   );
@@ -101,6 +102,7 @@ async function createUsuario(data){
 
   // 2. Validamos que los campos obligatorios estén presentes. En caso contrario, lanzamos un error.
   if (!mail || !password || !username || !rol) {
+    console.log("campos recibidos:" , mail, password, username, rol);
     const error = new Error("Faltan campos obligatorios...");
     error.statusCode = 400; // Asignamos un código de estado al error
     throw error; // ¡Lanzamos el error!

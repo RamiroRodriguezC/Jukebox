@@ -19,8 +19,8 @@ async function getAllReviews() {
 }
 // Devuelve un array con el usuario que tiene el id pasado por parametro
 async function getReviewById(id) {
-    const reviews = await globalService.getDocument(Review, { _id: id });
-    return reviews;
+    const review = await globalService.getDocument(Review, { _id: id });
+    return review;
 }
 
 async function createReview(data){

@@ -5,7 +5,7 @@
  *  @param {string} id - El ID del documento a actualizar.
  *  @returns {Promise<object|null>} El documento actualizado o null si no se encontró.
  */
-async function softDelete(Model, id) {
+ async function softDelete(Model, id) {
     // Utiliza findByIdAndUpdate para una operación atómica
     const updatedDocument = await Model.findByIdAndUpdate(
         id, // ID del Objeto que vamos a actualizar
@@ -102,13 +102,20 @@ async function getDocuments(Model, filtro) {
 async function getDocument(Model, filtro) {
   try {
     const query = { ...filtro, isDeleted: false };
-    
+    console.log(` \n\n\n Buscando UN documento de ${JSON.stringify(filtro)} \n\n\n`);
     // Usar findOne() devuelve un objeto o null
     const response = await Model.findOne(query); 
     
-    console.log(`Documento obtenido de ${Model.modelName} con filtro ${JSON.stringify(filtro)}`);
+    // log para ver el resultado | El JSON.stringify es para convertir el objeto en un string legible y poder concatenarlo
+    if  (!response){
+      console.log(`No se encontró ningún documento ${Model.modelName} con filtro ${JSON.stringify(filtro)}`);
+    } else {
+      console.log(`Documento encontrado de ${Model.modelName} con filtro ${JSON.stringify(filtro)}:`, response);
+    }
+    //
     return response;
     
+    // Maneja errores como por ejemplo, que el modelo no exista o la conexion a la DB falle, etc.
   } catch (error) {
      const mensajeError = `Error al obtener UN documento "${Model.modelName}" con criterios (${JSON.stringify(filtro)})`;
      console.error(mensajeError, error);
