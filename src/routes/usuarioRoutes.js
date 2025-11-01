@@ -21,13 +21,13 @@ router.get("/mail/:mail", authenticateToken, isAdmin, usuarioController.getByEma
 router.get("/:id", authenticateToken, usuarioController.getById);
 
 // --- Rutas de POST (con parámetros) ---
-router.post("/:idUser/favorito/:idCancion", authenticateToken, isSelf, usuarioController.addCancionAFavorito);
+router.post("/:id/favorito/:idCancion", authenticateToken, isSelf, usuarioController.addCancionAFavorito);
 
 // --- Rutas de PUT ---
 router.put("/:id", authenticateToken, isSelf, usuarioController.updateUsuario);
 
 // --- Rutas de DELETE (De más específicas a más genéricas) ---
-router.delete("/:idUser/favorito/:idCancion", authenticateToken, isSelf, usuarioController.deleteCancionEnFavorito);
+router.delete("/:id/favorito/:idCancion", authenticateToken, isSelf, usuarioController.deleteCancionEnFavorito);
 router.delete("/:id", authenticateToken, isSelf, usuarioController.deleteUsuario);
 
 

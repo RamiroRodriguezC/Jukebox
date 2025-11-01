@@ -61,7 +61,7 @@ const isAuthor = async (req, res, next) => {
 
 const isSelf = (req, res, next) => {
   // Comparamos el ID del token con el ID de la URL (req.params.idUser)
-  if (req.user.id !== req.params.idUser) {
+  if (req.user.id !== req.params.id) {
     return res.status(403).json({ error: 'Acceso denegado. Solo puedes modificar tus propios favoritos.' });
   }
   next(); // Es el dueño, puede pasar
