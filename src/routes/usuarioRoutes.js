@@ -14,7 +14,7 @@ router.get("/", authenticateToken, isAdmin, usuarioController.getAll);
 
 // GET /mail/:mail (ruta específica de búsqueda)
 // Esta DEBE ir ANTES de /:id para que Express no confunda "mail" con un "id".
-router.get("/mail/:mail", authenticateToken, isAdmin, usuarioController.getByEmail);
+/* router.get("/mail/:mail", authenticateToken, isAdmin, usuarioController.getByEmail); */
 
 // GET /:id (ruta genérica de ID)
 // Esta siempre va después de otras rutas GET más específicas.

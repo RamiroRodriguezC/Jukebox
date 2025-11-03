@@ -2,8 +2,8 @@ const Artista = require("../models/artistaModel");
 const globalService = require("./globalService");
 
 // FALTARIA EL MANEJO DE ERRORES
-async function getAllArtistas() {
-    const artistas = await globalService.getDocuments(Artista);
+async function getAllArtistas(options = {}) {
+    const artistas = await globalService.getDocuments(Artista, options);
     return artistas;
 }
 

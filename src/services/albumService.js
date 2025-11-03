@@ -3,10 +3,10 @@ const globalService = require("./globalService");
 const Album = require("../models/albumModel");
 
 
-async function getAllAlbums() {
+async function getAllAlbums(options = {}) {
     // La lógica de la base de datos se queda aquí.
     // Usamos .find() sin parámetros para obtener todos.
-    const albums = await globalService.getDocuments(Album );
+    const albums = await globalService.getDocuments(Album, options);
     return albums;
 }
 

@@ -2,8 +2,8 @@ const  Cancion = require("../models/cancionModel");
 const globalService = require("./globalService");
 
 // FALTARIA EL MANEJO DE ERRORES
-async function getAllCanciones() {
-    const canciones = await globalService.getDocuments(Cancion);
+async function getAllCanciones(options = {}) {
+    const canciones = await globalService.getDocuments(Cancion, options);
     return canciones;
 }
 
