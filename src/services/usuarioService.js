@@ -23,12 +23,8 @@ async function getUsuarioById(id) {
 
 // Devuelve el usuario que tiene el mail pasado por parametro (al ser unique, solo habra uno o ninguno)
 async function getUsuarioByEmail(mail) {
-    try {
       const usuario = await globalService.getDocument(Usuario, { mail: mail });
       return usuario;
-  } catch (error) {
-    throw new Error(error);
-  }
 }
 
 async function validatePassword(password, usuario) {
@@ -133,37 +129,7 @@ async function createUsuario(data){
 }
 
 async function updateUsuario(id, data){
-    try {
-      // Si se proporciona una nueva contraseña, hashearla antes de actualizar
-      if (data.password) data.passwordHash = await bcrypt.hash(data.password, 12);
-      delete data.password; // Eliminar el campo 'password' para evitar guardarlo directamente
-
-      // Reutilizamos la función genérica de 'update' del servicio global
-      const usuarioActualizado = await globalService.update(Usuario, id, data);
-
-      // Si el await da error rompe y esto no se ejecuta
-      const dataToSync = {};
-
-      // Si username y profilePhoto da Thruty (osea que no es null, undefined, false, 0 o cadena vacia) 
-      // los agregamos al objeto dataToSync para actualizar las reviews.
-      if (data.username) dataToSync["autor.username"] = data.username ;
-      
-      if (data.url_profile_photo) dataToSync["autor.url_profile_photo"] = data.url_profile_photo ;
-
-      if (Object.keys(dataToSync).length > 0) {
-            await Review.updateMany(
-                { "autor._id": id },  // Filtro (Las que coincidan con el autor.id)
-                // el set es para que no borro o toque otros campos que no quiero actualizar
-                { $set: dataToSync } // Update (los campos a actualizar) 
-            );
-      }
-
-      return usuarioActualizado;
-
-    // Reutilizamos la función genérica de 'update' del servicio global
-    }catch (error) {
-        throw error;
-    }
+    return await globalService.update(Usuario, id, data);
   }
 
 async function deleteUsuario(id){

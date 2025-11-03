@@ -27,7 +27,7 @@
  * @param {object} documento - El documento de Mongoose (Usuario, Review, Cancion, etc.). 
  * @returns {boolean} Retorna true si está eliminado, false si no, null si no existe.
  */
-async function isDeleted(documento) {
+function isDeleted(documento) {
     return documento.isDeleted;
 }   
 
@@ -51,7 +51,11 @@ async function update(Model, id, data) {
         throw new Error(`${Model.modelName} no esta disponible o ha sido eliminad@ (ID: ${id})`);
     }
 
-    documento.set(data); // Actualizamos la variable en memoria (con los nuevos datos)
+    /*
+    El método .set() funciona como una fusión (merge). Solo actualiza los campos que vienen en el objeto data. 
+    Los campos que ya existían en documento pero que no vienen en data, se quedan exactamente como estaban.
+    */
+    documento.set(data); 
     console.log(`Actualizando ${Model.modelName} con ID ${id} con los datos:`, data);
     await documento.save();
     console.log(`${Model.modelName} con ID ${id} actualizado correctamente.`);

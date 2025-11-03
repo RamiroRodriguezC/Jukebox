@@ -18,7 +18,7 @@ router.get("/mail/:mail", authenticateToken, isAdmin, usuarioController.getByEma
 
 // GET /:id (ruta genérica de ID)
 // Esta siempre va después de otras rutas GET más específicas.
-router.get("/:id", authenticateToken, usuarioController.getById);
+router.get("/:id", usuarioController.getById);
 
 // --- Rutas de POST (con parámetros) ---
 router.post("/:idUser/favorito/:idCancion", authenticateToken, isSelf, usuarioController.addCancionAFavorito);

@@ -61,8 +61,8 @@ const isAuthor = async (req, res, next) => {
 
 const isSelf = (req, res, next) => {
   // Comparamos el ID del token con el ID de la URL (req.params.idUser)
-  if (req.user.id !== req.params.idUser) {
-    return res.status(403).json({ error: 'Acceso denegado. Solo puedes modificar tus propios favoritos.' });
+  if (req.user.id !== req.params.idUser || rq.user.rol !== 'admin') {
+    return res.status(403).json({ error: 'Acceso denegado. Solo el usuario editado o un adminitrador pueden realizar esta accion' });
   }
   next(); // Es el dueño, puede pasar
 };

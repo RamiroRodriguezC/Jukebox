@@ -12,6 +12,11 @@ async function getCancionById(id) {
     return cancion;
 }
 
+/* 
+
+Deberia extenderse / modificarse, para que tambien busque albums y artistas
+
+*/
 async function buscarCanciones(busqueda) {
     // Si la cadena de búsqueda está vacía o es nula, devolver un array vacío.
     // es una validacion simple y nos evita hacer una consulta innecesaria.
