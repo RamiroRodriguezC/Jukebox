@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📖 README: Proyecto Jukebox (Backend API)
 
 Este repositorio contiene el backend (API REST) del proyecto "Jukebox", desarrollado como parte del examen parcial de Programación III. La API está construida con Node.js, Express y MongoDB, enfocándose en la gestión de música, usuarios y reseñas, con autenticación basada en JWT.
@@ -318,3 +319,6 @@ Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://ww
 | **DELETE** | `/canciones/:id`       | Borrado lógico de una canción. |
 | **DELETE** | `/artistas/:id`        | Borrado lógico de un artista.  |
 | **DELETE** | `/albums/:id`          | Borrado lógico de un álbum.    |
+=======
+
+>>>>>>> 4d326366d8ce86d00c688335bb598ee5e46f438e
