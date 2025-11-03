@@ -318,7 +318,7 @@ Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://ww
 | **DELETE** | `/canciones/:id`       | Borrado lógico de una canción. |
 | **DELETE** | `/artistas/:id`        | Borrado lógico de un artista.  |
 | **DELETE** | `/albums/:id`          | Borrado lógico de un álbum.    |
-=
+
 
 ## Funcionalidades Pendientes
 - [ ] Mejorar la funcion searchSongs para que tambien busque albunes y artistas coincidentes.
