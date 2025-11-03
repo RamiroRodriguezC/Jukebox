@@ -6,7 +6,7 @@ Este repositorio contiene el backend (API REST) del proyecto "Jukebox", desarrol
 
 La API está desplegada y lista para ser consumida en la siguiente URL (puedes usar Postman o tu frontend para probarla):
 
-**URL Base:** [Base URL] (https://www.google.com/search?q=https://jukebox-rpt0.onrender.com)
+**URL Base:** [Base URL](https://www.google.com/search?q=https://jukebox-rpt0.onrender.com)
 
 ## 💻 Tecnologías Utilizadas
 
