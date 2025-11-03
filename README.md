@@ -320,9 +320,6 @@ Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://ww
 | **DELETE** | `/albums/:id`          | Borrado lógico de un álbum.    |
 =======
 
-## Mejoras a futuro
-- [ ] Mejorar la funcion searchSongs para que tambien busque albunes y artistas coincidentes
-- [ ] Agregar funcion de buscar reseñas de un album especifico (en realidad, hacer generica la de buscar reviews de una cancion)
-- [ ] getReviews ¿Tiene sentido como ruta?
-- [ ] getByMail ¿Tiene sentido como ruta?
-- [ ] agregar el procesamiento de imagenes
+## Funcionalidades Pendientes
+- [ ] Mejorar la funcion searchSongs para que tambien busque albunes y artistas coincidentes.
+- [ ] Agregar el procesamiento de imagenes.
