@@ -42,7 +42,7 @@ async function deleteReview(req,res){
   res.status(201).json({ message: "Receta eliminada"});
 }
 
-async function getAlbumReviews(req,res){
+/* async function getAlbumReviews(req,res){
     try {
         // 1. Leemos los parámetros de paginación desde la URL (query string)
         // Ej: /reviews?limit=10&cursor=a1b2c3d4
@@ -86,14 +86,14 @@ async function getUserReviews(req,res){
         res.status(500).json({ error: `Error al obtener las reviews del usuario: \n ${err.message}` });
     }
 }
-
+*/
 module.exports = {
     getAll,
     getById,
     createReview,
     updateReview,
     deleteReview,
-    getSongReviews,
+    /* getSongReviews,
     getUserReviews,
-    getAlbumReviews,
+    getAlbumReviews, */
 };

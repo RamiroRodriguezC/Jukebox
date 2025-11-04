@@ -278,7 +278,7 @@ _(Para ver ejemplos de Request Body y Respuestas, referirse al código fuente)._
 
 A continuación podrás visualizar un resumen de los endpoints de la aplicación.
 
-Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://www.google.com/search?q=https://documenter.getpostman.com/view/48710464/2sB3WpRMEY%2523dc184805-a6ae-451b-8875-97d5f9d4d51e "null").
+Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://documenter.getpostman.com/view/48710464/2sB3WpRMEY "null").
 
 #### Rutas Públicas
 
