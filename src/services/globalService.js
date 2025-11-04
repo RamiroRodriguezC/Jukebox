@@ -16,6 +16,11 @@
             new: true,           // Devuelve el documento ya actualizado
             runValidators: false // Desactiva la validación de campos 'required', de esta forma no espera que se envien los campos obligatorios
         }
+
+     if (!updatedDocument) {
+          console.log(`${Model.modelName} con ID ${id} no encontrado.`);
+          return null;
+     }
     );
 
      console.log(`en user actualizando is deleted: ${updatedDocument.isDeleted}`);
