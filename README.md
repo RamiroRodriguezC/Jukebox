@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 📖 README: Proyecto Jukebox (Backend API)
 
 Este repositorio contiene el backend (API REST) del proyecto "Jukebox", desarrollado como parte del examen parcial de Programación III. La API está construida con Node.js, Express y MongoDB, enfocándose en la gestión de música, usuarios y reseñas, con autenticación basada en JWT.
@@ -7,7 +6,7 @@ Este repositorio contiene el backend (API REST) del proyecto "Jukebox", desarrol
 
 La API está desplegada y lista para ser consumida en la siguiente URL (puedes usar Postman o tu frontend para probarla):
 
-**URL Base:** https://www.google.com/search?q=https://jukebox-rpt0.onrender.com
+**URL Base:** [https://www.google.com/search?q=https://jukebox-rpt0.onrender.com](https://jukebox-rpt0.onrender.com)
 
 ## 💻 Tecnologías Utilizadas
 
@@ -278,7 +277,7 @@ _(Para ver ejemplos de Request Body y Respuestas, referirse al código fuente)._
 
 A continuación podrás visualizar un resumen de los endpoints de la aplicación.
 
-Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://documenter.getpostman.com/view/48710464/2sB3WpRMEY "null").
+Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://documenter.getpostman.com/view/48710464/2sB3WpRMEY).
 
 #### Rutas Públicas
 
