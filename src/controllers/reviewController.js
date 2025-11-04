@@ -55,7 +55,7 @@ async function deleteReview(req,res){
     } catch (err) {
         res.status(500).json({ error: `Error al obtener las reviews de la canción: \n ${err.message}` });
     }
-}
+} */
 
 async function getSongReviews(req,res){
     try {
@@ -71,7 +71,7 @@ async function getSongReviews(req,res){
         res.status(500).json({ error: `Error al obtener las reviews de la canción: \n ${err.message}` });
     }
 }
-
+/*
 async function getUserReviews(req,res){
     try {
           // 1. Leemos los parámetros de paginación desde la URL (query string)
@@ -93,7 +93,7 @@ module.exports = {
     createReview,
     updateReview,
     deleteReview,
-    /* getSongReviews,
-    getUserReviews,
+    getSongReviews,
+    /* getUserReviews,
     getAlbumReviews, */
 };

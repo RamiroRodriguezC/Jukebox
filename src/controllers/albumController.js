@@ -9,7 +9,6 @@ async function getAll(req, res) {
           limit: req.query.limit,
           cursor: req.query.cursor
         };
-
         const albums = await albumService.getAllAlbums(options);
         res.json(albums); 
     } catch (err) {

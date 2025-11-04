@@ -142,7 +142,7 @@ async function deleteUsuario(id){
 module.exports = {
     getAllUsuarios,
     getUsuarioById,
-    //getUsuarioByEmail,
+    // getUsuarioByEmail,
     validatePassword,
     generateToken,
     createUsuario,

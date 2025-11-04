@@ -111,13 +111,13 @@ async function deleteReview(id){
 
 // Estas se podrian generalizar en una sola funcion con un parametro extra 'Model'.
 
-/*
+
 async function getSongReviews(id, options = {}){
     const query = {entidad_tipo : 'Cancion', entidad_id : id};
     const  reviews = await globalService.getDocuments(Review, options, query);
     return reviews;
 }
-
+/*
 async function getAlbumReviews(id, options = {}){
     const query = {entidad_tipo : 'Album', entidad_id : id};
     const  reviews = await globalService.getDocuments(Review, options,query);
@@ -138,7 +138,7 @@ module.exports = {
     createReview,
     updateReview,
     deleteReview,
-    /*getSongReviews,
-    getAlbumReviews,
+    getSongReviews,
+    /* getAlbumReviews,
     getUserReviews, */
 };
