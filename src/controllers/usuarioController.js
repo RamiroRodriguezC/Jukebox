@@ -125,7 +125,7 @@ async function deleteUsuario(req,res){
 module.exports = {
     getAll,
     getById,
-    getByEmail,
+    // getByEmail,
     login,
     createUsuario,
     updateUsuario,
