@@ -28,8 +28,6 @@ La API está desplegada y lista para ser consumida en la siguiente URL (puedes u
     
 - **dotenv:** Para el manejo de variables de entorno.
     
-- **CORS:** Para habilitar el acceso desde diferentes dominios.
-    
 
 ## 🛠️ Configuración y Puesta en Marcha
 
