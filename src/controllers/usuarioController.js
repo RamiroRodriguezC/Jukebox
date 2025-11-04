@@ -25,7 +25,7 @@ async function getById(req, res) {
   }
 };
 
-/* async function getByEmail(req, res) {
+async function getByEmail(req, res) {
   const mail = req.params.mail;
   try {
     const usuarios = await usuarioService.getUsuarioByEmail(mail);
@@ -33,7 +33,7 @@ async function getById(req, res) {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}; */
+}; 
 
 //SI HAY TIEMPO CAMBIAR TODAS LAS DECLARACIONES DE FUNCIONES A ESTA FORMA
 /*  Esta forma de declarar es el estandar moderno (segun gemini), 
@@ -125,7 +125,7 @@ async function deleteUsuario(req,res){
 module.exports = {
     getAll,
     getById,
-    // getByEmail,
+    getByEmail,
     login,
     createUsuario,
     updateUsuario,
