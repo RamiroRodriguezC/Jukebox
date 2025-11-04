@@ -7,6 +7,7 @@
  */
  async function softDelete(Model, id) {
     // Utiliza findByIdAndUpdate para una operación atómica
+  console.log(`${Model.modelName} con ID ${id} se va a actualizar.`);
     const updatedDocument = await Model.findByIdAndUpdate(
         id, // ID del Objeto que vamos a actualizar
         { isDeleted: true }, // El campo que vamos a actualizar (flag de soft delete)
@@ -17,6 +18,7 @@
         }
     );
 
+     console.log(`en user actualizando is deleted: ${updatedDocument.isDeleted}`);
     // Mongoose devuelve 'null' si no encuentra el ID.
     // No necesitamos reasignar, solo devolver el resultado.
     return updatedDocument;
