@@ -1,3 +1,6 @@
+const  Cancion = require("../models/cancionModel");
+const  Album = require("../models/albumModel");
+
 
 /**
  * Realiza un 'soft delete' (borrado suave) en un documento de Mongoose.
@@ -25,6 +28,25 @@
     
 
      console.log(`en user actualizando is deleted: ${updatedDocument.isDeleted}`);
+
+    // Eliminación embebida condicional, si se elimina una cancion, se elimina del Album tambien
+    if (Model.modelName === "Cancion") {
+      console.log("Eliminando canción embebida en albums...");
+      await Album.updateMany(
+       { "canciones._id": id },
+       { $pull: { canciones: { _id: id } } } // $pull si es un array
+      );
+    }
+
+    // Eliminación embebida condicional, si se elimina un Album, se elimina de la Cancion tambien
+    if (Model.modelName === "Album") {
+      console.log("Eliminando referencia de álbum en canciones...");
+      await Cancion.updateMany(
+        { "album._id": id },
+        { $unset: { album: "" } } // $unset si es un objeto
+      );
+    }
+
     // Mongoose devuelve 'null' si no encuentra el ID.
     // No necesitamos reasignar, solo devolver el resultado.
     return updatedDocument;
