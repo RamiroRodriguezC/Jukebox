@@ -2,7 +2,14 @@ const reviewService = require("../services/reviewService");
 
 async function getAll(req, res) {
   try {
-    const reviews = await reviewService.getAllReviews();
+    // 1. Leemos los parámetros de paginación desde la URL (query string)
+    // Ej: /reviews?limit=10&cursor=a1b2c3d4
+    const options = {
+      limit: req.query.limit,
+      cursor: req.query.cursor
+    };
+
+    const reviews = await reviewService.getAllReviews(options);
     res.json(reviews);
   } catch (err) {
     res.status(500).json({error: err.message });
@@ -35,24 +42,51 @@ async function deleteReview(req,res){
   res.status(201).json({ message: "Receta eliminada"});
 }
 
+/* async function getAlbumReviews(req,res){
+    try {
+        // 1. Leemos los parámetros de paginación desde la URL (query string)
+        // Ej: /reviews?limit=10&cursor=a1b2c3d4
+        const options = {
+          limit: req.query.limit,
+          cursor: req.query.cursor
+        };
+        const reviews = await reviewService.getAlbumReviews(req.params.id, options);
+        res.status(200).json(reviews);
+    } catch (err) {
+        res.status(500).json({ error: `Error al obtener las reviews de la canción: \n ${err.message}` });
+    }
+} */
+
 async function getSongReviews(req,res){
     try {
-        const reviews = await reviewService.getSongReviews(req.params.id);
+          // 1. Leemos los parámetros de paginación desde la URL (query string)
+          // Ej: /reviews?limit=10&cursor=a1b2c3d4
+          const options = {
+            limit: req.query.limit,
+            cursor: req.query.cursor
+          };
+        const reviews = await reviewService.getSongReviews(req.params.id, options);
         res.status(200).json(reviews);
     } catch (err) {
         res.status(500).json({ error: `Error al obtener las reviews de la canción: \n ${err.message}` });
     }
 }
-
+/*
 async function getUserReviews(req,res){
     try {
-        const reviews = await reviewService.getUserReviews(req.params.id);
+          // 1. Leemos los parámetros de paginación desde la URL (query string)
+          // Ej: /reviews?limit=10&cursor=a1b2c3d4
+          const options = {
+            limit: req.query.limit,
+            cursor: req.query.cursor
+          };
+        const reviews = await reviewService.getUserReviews(req.params.id, options);
         res.status(200).json(reviews);
     } catch (err) {
         res.status(500).json({ error: `Error al obtener las reviews del usuario: \n ${err.message}` });
     }
 }
-
+*/
 module.exports = {
     getAll,
     getById,
@@ -60,5 +94,6 @@ module.exports = {
     updateReview,
     deleteReview,
     getSongReviews,
-    getUserReviews,
+    /* getUserReviews,
+    getAlbumReviews, */
 };

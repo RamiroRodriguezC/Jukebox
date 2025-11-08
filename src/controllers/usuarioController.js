@@ -2,7 +2,13 @@ const usuarioService = require("../services/usuarioService");
 
 async function getAll(req, res) {
   try {
-    const usuarios = await usuarioService.getAllUsuarios();
+    // 1. Leemos los parámetros de paginación desde la URL (query string)
+    // Ej: /reviews?limit=10&cursor=a1b2c3d4
+    const options = {
+      limit: req.query.limit,
+      cursor: req.query.cursor
+    };
+    const usuarios = await usuarioService.getAllUsuarios(options);
     res.json(usuarios);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -27,7 +33,7 @@ async function getByEmail(req, res) {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}; 
 
 //SI HAY TIEMPO CAMBIAR TODAS LAS DECLARACIONES DE FUNCIONES A ESTA FORMA
 /*  Esta forma de declarar es el estandar moderno (segun gemini), 

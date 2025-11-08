@@ -13,8 +13,8 @@ const modelosResenables = {
   Album,
 };
 
-async function getAllReviews() {
-    const reviews = await globalService.getDocuments(Review);
+async function getAllReviews(options = {}) {
+    const reviews = await globalService.getDocuments(Review, options);
     return reviews;
 }
 // Devuelve un array con el usuario que tiene el id pasado por parametro
@@ -57,7 +57,7 @@ async function createReview(data){
       throw error;
   }
   if (!autor) {
-     const error = new Error(`No se encontro el auto con ID '${autor_id}'.`);
+     const error = new Error(`No se encontro el autor con ID '${autor_id}'.`);
       error.statusCode = 404;
       throw error;
   }
@@ -109,24 +109,27 @@ async function deleteReview(id){
       return await globalService.softDelete(Review, id);
 }
 
-async function getSongReviews(id){
+// Estas se podrian generalizar en una sola funcion con un parametro extra 'Model'.
+
+
+async function getSongReviews(id, options = {}){
     const query = {entidad_tipo : 'Cancion', entidad_id : id};
-    const  reviews = await globalService.getDocuments(Review, query);
+    const  reviews = await globalService.getDocuments(Review, options, query);
     return reviews;
 }
-
-async function getAlbumReviews(id){
+/*
+async function getAlbumReviews(id, options = {}){
     const query = {entidad_tipo : 'Album', entidad_id : id};
-    const  reviews = await globalService.getDocuments(Review, query);
+    const  reviews = await globalService.getDocuments(Review, options,query);
     return reviews;
 }
 
-async function getUserReviews(id){
+async function getUserReviews(id, options = {}){
     const query = {entidad_tipo : 'Usuario', entidad_id : id};
-    const  reviews = await globalService.getDocuments(Review, query);
+    const  reviews = await globalService.getDocuments(Review, options, query);
     return reviews;
 }
-
+*/
 
 
 module.exports = {
@@ -136,6 +139,6 @@ module.exports = {
     updateReview,
     deleteReview,
     getSongReviews,
-    getAlbumReviews,
-    getUserReviews,
+    /* getAlbumReviews,
+    getUserReviews, */
 };

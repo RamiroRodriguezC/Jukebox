@@ -24,6 +24,15 @@ app.use("/canciones", cancionRoutes);
 app.use("/reviews"  , reviewRoutes);
 app.use("/usuarios" , usuarioRoutes);
 
+// Si express llego hasta aca, es por que ninguna ruta coincide, entonces tiramos un error 404 not found
+app.use((req, res, next) => {
+  // Devolvemos una respuesta JSON con el código de estado 404
+  res.status(404).json({
+    error: 'Recurso no encontrado',
+    message: `La ruta ${req.method} ${req.originalUrl} no está implementada en este servidor.`
+  });
+});
+
 // Inicio del server
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

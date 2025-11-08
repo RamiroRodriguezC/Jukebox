@@ -2,7 +2,14 @@ const cancionService = require("../services/cancionService");
 
 async function getAll(req, res) {
   try {
-    const canciones = await cancionService.getAllCanciones();
+    // 1. Leemos los parámetros de paginación desde la URL (query string)
+    // Ej: /reviews?limit=10&cursor=a1b2c3d4
+    const options = {
+      limit: req.query.limit,
+      cursor: req.query.cursor
+    };
+
+    const canciones = await cancionService.getAllCanciones(options);
     res.json(canciones);
   } catch (err) {
         console.error("Error en la consulta de Canciones:", err); 

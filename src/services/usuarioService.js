@@ -7,8 +7,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 
-async function getAllUsuarios() {
-    const usuarios = await globalService.getDocuments(Usuario);
+async function getAllUsuarios(options = {}) {
+    const usuarios = await globalService.getDocuments(Usuario, options);
     return usuarios;
 }
 // Devuelve un array con el usuario que tiene el id pasado por parametro
@@ -25,7 +25,7 @@ async function getUsuarioById(id) {
 async function getUsuarioByEmail(mail) {
       const usuario = await globalService.getDocument(Usuario, { mail: mail });
       return usuario;
-}
+} 
 
 async function validatePassword(password, usuario) {
     // compare toma el password en texto plano, 

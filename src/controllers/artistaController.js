@@ -3,8 +3,14 @@ const artistaService = require("../services/artistaService");
 
 async function getAll(req, res) {
   try {
-    const artistas = await artistaService.getAllArtistas();
-    res.json(artistas);
+      // 1. Leemos los parámetros de paginación desde la URL (query string)
+      // Ej: /reviews?limit=10&cursor=a1b2c3d4
+      const options = {
+        limit: req.query.limit,
+        cursor: req.query.cursor
+      };
+      const artistas = await artistaService.getAllArtistas(options);
+      res.json(artistas);
   } catch (err) {
     res.status(500).json({ error: "Error al obtener Artistas" });
   }

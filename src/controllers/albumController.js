@@ -3,7 +3,13 @@ const albumService = require("../services/albumService");
 
 async function getAll(req, res) {
     try {
-        const albums = await albumService.getAllAlbums();
+        // 1. Leemos los parámetros de paginación desde la URL (query string)
+        // Ej: /reviews?limit=10&cursor=a1b2c3d4
+        const options = {
+          limit: req.query.limit,
+          cursor: req.query.cursor
+        };
+        const albums = await albumService.getAllAlbums(options);
         res.json(albums); 
     } catch (err) {
         // 3. Maneja el error HTTP (500 Internal Server Error)

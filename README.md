@@ -2,6 +2,10 @@
 
 Este repositorio contiene el backend (API REST) del proyecto "Jukebox", desarrollado como parte del examen parcial de Programación III. La API está construida con Node.js, Express y MongoDB, enfocándose en la gestión de música, usuarios y reseñas, con autenticación basada en JWT.
 
+## ¿Que es Jukebox?
+
+Jukebox es una plataforma social para compartir tu gusto musical, reseñar los albunes y canciones que escuches, descubrir nuevas canciones y llevar el registro de todo el contenido que escuchaste.
+
 ## 🚀 Despliegue
 
 La API está desplegada en el Web Service "Render" y lista para ser consumida en la siguiente URL (puedes usar Postman o tu frontend para probarla):
@@ -23,8 +27,6 @@ La API está desplegada en el Web Service "Render" y lista para ser consumida en
 - **bcrypt:** Para el hasheo seguro de contraseñas.
     
 - **dotenv:** Para el manejo de variables de entorno.
-    
-- **CORS:** Para habilitar el acceso desde diferentes dominios.
     
 
 ## 🛠️ Configuración y Puesta en Marcha
@@ -277,7 +279,7 @@ _(Para ver ejemplos de Request Body y Respuestas, referirse al código fuente)._
 
 A continuación podrás visualizar un resumen de los endpoints de la aplicación.
 
-Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://www.google.com/search?q=https://documenter.getpostman.com/view/48710464/2sB3WpRMEY%2523dc184805-a6ae-451b-8875-97d5f9d4d51e "null").
+Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://documenter.getpostman.com/view/48710464/2sB3WpRMEY).
 
 #### Rutas Públicas
 
