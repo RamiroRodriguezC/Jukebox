@@ -8,9 +8,9 @@ Jukebox es una plataforma social para compartir tu gusto musical, reseñar los a
 
 ## 🚀 Despliegue
 
-La API está desplegada y lista para ser consumida en la siguiente URL (puedes usar Postman o tu frontend para probarla):
+La API está desplegada en el Web Service "Render" y lista para ser consumida en la siguiente URL (puedes usar Postman o tu frontend para probarla):
 
-**URL Base:** [https://www.google.com/search?q=https://jukebox-rpt0.onrender.com](https://jukebox-rpt0.onrender.com)
+**URL Base:** [Base URL](https://www.google.com/search?q=https://jukebox-rpt0.onrender.com)
 
 ## 💻 Tecnologías Utilizadas
 
@@ -320,6 +320,8 @@ Podes encontrar la **documentación detallada** en [Jukebox Full Doc](https://do
 | **DELETE** | `/canciones/:id`       | Borrado lógico de una canción. |
 | **DELETE** | `/artistas/:id`        | Borrado lógico de un artista.  |
 | **DELETE** | `/albums/:id`          | Borrado lógico de un álbum.    |
-=======
 
->>>>>>> 4d326366d8ce86d00c688335bb598ee5e46f438e
+
+## Funcionalidades Pendientes
+- [ ] Mejorar la funcion searchSongs para que tambien busque albunes y artistas coincidentes.
+- [ ] Agregar el procesamiento de imagenes.
