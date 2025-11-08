@@ -132,9 +132,8 @@ async function updateUsuario(id, data){
     return await globalService.update(Usuario, id, data);
   }
 
-async function deleteUsuario(id){
-    // Reutilizamos la función genérica de 'soft delete' del servicio global
-    return await globalService.softDelete(Usuario, id);
+async function deleteUsuario(id, options = {}) {
+    return await Usuario.logicalDelete({ _id: id }, options);
 }
 
 

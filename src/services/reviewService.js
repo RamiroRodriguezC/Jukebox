@@ -104,9 +104,8 @@ async function updateReview(id,data){
     return await globalService.update(Review, id, data);
 }
 
-async function deleteReview(id){
-    // Reutilizamos la función genérica de 'soft delete' del servicio global
-      return await globalService.softDelete(Review, id);
+async function deleteReview(id, options = {}) {
+    return await Review.logicalDelete({ _id: id }, options);
 }
 
 // Estas se podrian generalizar en una sola funcion con un parametro extra 'Model'.

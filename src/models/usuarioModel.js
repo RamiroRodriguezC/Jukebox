@@ -36,4 +36,45 @@ const usuarioSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+/**
+ * Método estático para realizar un borrado lógico de usuarios.
+ * Este método orquesta el borrado de sus dependencias (Reviews).
+ * @param {object} query - Filtro para encontrar los usuarios a borrar (ej: { _id: '...' }).
+ */
+
+/* Declaramos como funcion estatica del schema (https://mongoosejs.com/docs/guide.html#statics) 
+   Basicamente estamos agregandole una funcion mas, como find, como cualquier otra.      */
+
+albumSchema.statics.delete = async function(query) {
+    // Llamamos al "corredor" genérico pasándole el modelo actual ('this'),
+    // la query original, y el objeto de configuración de dependencias.
+    return runCascadeDelete(this, query, {
+        
+        // 'cascade': Lista de modelos HIJOS que deben borrarse lógicamente también.
+        cascade: [
+            // 1. Borrar las REVIEWS asociadas a este usuario.
+            {
+                modelName: 'Review',
+                // 'parentIds' es un array con los IDs de los usuarios que estamos borrando.
+                /* $in es practicamente un or, busca coincidencia con al menos uno de los valores del array
+                   como el id es unica va a encontrar el modelo que corresponda a cada id */
+                buildQuery: (parentIds) => ({ 'autor._id': { $in: parentIds } })
+            },
+
+        ],
+
+        // 'effects': Lista de modelos RELACIONADOS que deben actualizarse (NO borrarse).
+        effects: [
+            /* EJEMPLO HIPOTÉTICO: Si Artista tuviera 'discografia' embebida
+            {
+                modelName: 'Artista',
+                reportAs: 'artistasActualizados', // <--- AQUÍ VA EL reportAs
+                buildQuery: (parentIds) => ({ 'discografia._id': { $in: parentIds } }),
+                operation: (parentIds) => ({ $pull: { discografia: { _id: { $in: parentIds } } } })
+            }
+            */
+        ]
+    });
+}
+
 module.exports = mongoose.model("Usuario", usuarioSchema);

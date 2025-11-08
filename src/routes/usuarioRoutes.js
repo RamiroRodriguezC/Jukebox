@@ -28,7 +28,11 @@ router.put("/:id", authenticateToken, isSelf, usuarioController.updateUsuario);
 
 // --- Rutas de DELETE (De más específicas a más genéricas) ---
 router.delete("/:id/favorito/:idCancion", authenticateToken, isSelf, usuarioController.deleteCancionEnFavorito);
-router.delete("/:id", authenticateToken, isSelf, usuarioController.deleteUsuario);
+router.delete("/:id", authenticateToken, isAdmin, usuarioController.softDelete);
+
+// Borrado Físico (Hard Delete) - SOLO ADMIN - SIN IMPLEMENTAR
+// Usamos una URL diferente para ser explícitos, por ejemplo '/hard/:id'
+/* router.delete("/hard/:id", authenticateToken, isAdmin, usuarioController.hardDeleteReview); */
 
 
 module.exports = router;

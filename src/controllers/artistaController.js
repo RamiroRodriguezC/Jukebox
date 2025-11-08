@@ -26,13 +26,31 @@ async function getById(req, res) {
   }
 };
 
-async function deleteArtista(req,res){
-  await artistaService.deleteArtista(req.params.id);
-  res.json({ message: "Artista eliminado"});
-}
+
+// Borrado Lógico (Soft Delete)
+/* async function softDelete(req, res) {
+  try {
+    const id = req.params.id;
+    // Llamamos al servicio SIN opciones (por defecto es soft delete)
+    const result = await ArtistaService.deleteArtista(id);
+
+    if (result.artistas === 0) {
+        return res.status(404).json({ message: "Artista no encontrado o ya eliminada." });
+    }
+
+    res.status(200).json({
+        message: "Artista eliminado lógicamente.",
+        report: result
+    });
+  } catch (err) {
+    console.error("Error en softDelete (Artista):", err);
+    res.status(500).json({ error: "Error interno al eliminar al artista." });
+  }
+} 
+*/
 
 module.exports = {
   getAll,
   getById,
-  deleteArtista,
+  //softDelete,
 };

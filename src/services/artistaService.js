@@ -12,9 +12,8 @@ async function getArtistaById(id) {
     return artista;
 }
 
-async function deleteArtista(id){
-    // Reutilizamos la función genérica de 'soft delete' del servicio global
-        return await globalService.softDelete(Artista, id);
+async function deleteArtista(id, options = {}) {
+    return await Artista.logicalDelete({ _id: id }, options);
 }
 
 
