@@ -1,66 +1,3 @@
-const  Cancion = require("../models/cancionModel");
-const  Album = require("../models/albumModel");
-
-
-/**
- * Realiza un 'soft delete' (borrado suave) en un documento de Mongoose.
- *  @param {object} Model - El modelo de Mongoose (Usuario, Review, Cancion, etc.).
- *  @param {string} id - El ID del documento a actualizar.
- *  @returns {Promise<object|null>} El documento actualizado o null si no se encontró.
- */
- async function softDelete(Model, id) {
-    // Utiliza findByIdAndUpdate para una operación atómica
-  console.log(`${Model.modelName} con ID ${id} se va a actualizar.`);
-    const updatedDocument = await Model.findByIdAndUpdate(
-        id, // ID del Objeto que vamos a actualizar
-        { isDeleted: true }, // El campo que vamos a actualizar (flag de soft delete)
-        { 
-            // Opciones de configuración
-            new: true,           // Devuelve el documento ya actualizado
-            runValidators: false // Desactiva la validación de campos 'required', de esta forma no espera que se envien los campos obligatorios
-        }
-        );
-      
-     if (!updatedDocument) {
-           console.log(`${Model.modelName} con ID ${id} no encontrado.`);
-           return null;
-      }
-    
-
-     console.log(`en user actualizando is deleted: ${updatedDocument.isDeleted}`);
-
-    // Eliminación embebida condicional, si se elimina una cancion, se elimina del Album tambien
-    if (Model.modelName === "Cancion") {
-      console.log("Eliminando canción embebida en albums...");
-      await Album.updateMany(
-       { "canciones._id": id },
-       { $pull: { canciones: { _id: id } } } // $pull si es un array
-      );
-    }
-
-    // Eliminación embebida condicional, si se elimina un Album, se elimina de la Cancion tambien
-    if (Model.modelName === "Album") {
-      console.log("Eliminando referencia de álbum en canciones...");
-      await Cancion.updateMany(
-        { "album._id": id },
-        { $unset: { album: "" } } // $unset si es un objeto
-      );
-    }
-
-    // Mongoose devuelve 'null' si no encuentra el ID.
-    // No necesitamos reasignar, solo devolver el resultado.
-    return updatedDocument;
-}
-
-/**
- * 
- * @param {object} documento - El documento de Mongoose (Usuario, Review, Cancion, etc.). 
- * @returns {boolean} Retorna true si está eliminado, false si no, null si no existe.
- */
-function isDeleted(documento) {
-    return documento.isDeleted;
-}   
-
 /**
  * Realiza un update en un documento de Mongoose siempre y cuando este no este eliminado (Soft Delete) y exista.
  *  @param {object} Model - El modelo de Mongoose (Usuario, Review, Cancion, etc.).
@@ -223,6 +160,7 @@ async function getDocument(Model, filtro = {}) {
 
 module.exports = {
     softDelete,
+    softDeleteMany,
     isDeleted,
     update,
     getDocument,

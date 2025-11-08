@@ -63,9 +63,8 @@ async function buscarCanciones(busqueda) {
         return await globalService.update(Cancion, id, data);
 } */
 
-async function deleteCancion(id){
-    // Reutilizamos la función genérica de 'soft delete' del servicio global
-        return await globalService.softDelete(Cancion, id);
+async function deleteCancion(id, options = {}) {
+    return await Cancion.logicalDelete({ _id: id }, options);
 }
 
 

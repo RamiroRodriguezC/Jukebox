@@ -37,9 +37,25 @@ async function updateReview(req,res){
   res.status(201).json(reviewActualizada);
 }
 
-async function deleteReview(req,res){
-  await reviewService.deleteReview(req.params.id);
-  res.status(201).json({ message: "Receta eliminada"});
+// Borrado Lógico (Soft Delete)
+async function softDelete(req, res) {
+  try {
+    const id = req.params.id;
+    // Llamamos al servicio SIN opciones (por defecto es soft delete)
+    const result = await ReviewService.deleteReview(id);
+
+    if (result.reviews === 0) {
+        return res.status(404).json({ message: "Review no encontrado o ya eliminada." });
+    }
+
+    res.status(200).json({
+        message: "Review eliminada lógicamente.",
+        report: result
+    });
+  } catch (err) {
+    console.error("Error en softDelete (Review):", err);
+    res.status(500).json({ error: "Error interno al eliminar la review." });
+  }
 }
 
 /* async function getAlbumReviews(req,res){
@@ -92,7 +108,7 @@ module.exports = {
     getById,
     createReview,
     updateReview,
-    deleteReview,
+    softDelete,
     getSongReviews,
     /* getUserReviews,
     getAlbumReviews, */

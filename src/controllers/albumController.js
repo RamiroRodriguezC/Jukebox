@@ -21,8 +21,8 @@ async function getAll(req, res) {
 };
 
 async function getById(req, res) {
-  const id = req.params.id;
   try {
+    const id = req.params.id;
     const albums = await albumService.getAlbumById(id); 
     res.json(albums);
   } catch (err) {
@@ -30,13 +30,29 @@ async function getById(req, res) {
   }
 };
 
-async function deleteAlbum(req,res){
-  await albumService.deleteAlbum(req.params.id);
-  res.json({ message: "Album eliminado"});
+// Borrado Lógico (Soft Delete)
+async function softDelete(req, res) {
+  try {
+    const id = req.params.id;
+    // Llamamos al servicio SIN opciones (por defecto es soft delete)
+    const result = await AlbumService.deleteAlbum(id);
+
+    if (result.albums === 0) {
+        return res.status(404).json({ message: "Album no encontrado o ya eliminado." });
+    }
+
+    res.status(200).json({
+        message: "Album eliminado lógicamente.",
+        report: result
+    });
+  } catch (err) {
+    console.error("Error en softDelete (Album):", err);
+    res.status(500).json({ error: "Error interno al eliminar al album." });
+  }
 }
 
 module.exports = {
     getAll,
     getById,
-    deleteAlbum,
+    softDelete,
 };

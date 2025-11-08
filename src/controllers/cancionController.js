@@ -50,9 +50,25 @@ async function searchCanciones(req, res){
     res.status(200).json(cancionActualizada);
 } */
 
-async function deleteCancion(req,res){
-  await cancionService.deleteCancion(req.params.id);
-  res.status(200).json({ message: "Cancion eliminada"});
+// Borrado Lógico (Soft Delete)
+async function softDelete(req, res) {
+  try {
+    const id = req.params.id;
+    // Llamamos al servicio SIN opciones (por defecto es soft delete)
+    const result = await CancionService.deleteCancion(id);
+
+    if (result.canciones === 0) {
+        return res.status(404).json({ message: "Cancion no encontrada o ya eliminada." });
+    }
+
+    res.status(200).json({
+        message: "Cancion eliminada lógicamente.",
+        report: result
+    });
+  } catch (err) {
+    console.error("Error en softDelete (Cancion):", err);
+    res.status(500).json({ error: "Error interno al eliminar la cancion." });
+  }
 }
 
 module.exports = {
@@ -60,5 +76,5 @@ module.exports = {
     getById,
     searchCanciones,
     //updateCancion,
-    deleteCancion,
+    softDelete,
 };

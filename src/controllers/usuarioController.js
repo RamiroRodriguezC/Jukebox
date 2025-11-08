@@ -117,9 +117,26 @@ async function updateUsuario(req,res){
   const usuarioActualizado = await usuarioService.updateUsuario(req.params.id, req.body);
   res.status(201).json(usuarioActualizado);
 }
-async function deleteUsuario(req,res){
-  await usuarioService.deleteUsuario(req.params.id);
-  res.json({ message: "Usuario eliminado"});
+
+// Borrado Lógico (Soft Delete)
+async function softDelete(req, res) {
+  try {
+    const id = req.params.id;
+    // Llamamos al servicio SIN opciones (por defecto es soft delete)
+    const result = await usuarioService.deleteUsuario(id);
+
+    if (result.usuarios === 0) {
+        return res.status(404).json({ message: "Usuario no encontrado o ya eliminada." });
+    }
+
+    res.status(200).json({
+        message: "Usuario eliminada lógicamente.",
+        report: result
+    });
+  } catch (err) {
+    console.error("Error en softDelete (Usuario):", err);
+    res.status(500).json({ error: "Error interno al eliminar el usuario." });
+  }
 }
 
 module.exports = {
@@ -129,7 +146,7 @@ module.exports = {
     login,
     createUsuario,
     updateUsuario,
-    deleteUsuario,
+    softDelete,
     addCancionAFavorito,
     deleteCancionEnFavorito,
 };

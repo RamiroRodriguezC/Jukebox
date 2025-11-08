@@ -10,7 +10,13 @@ router.get("/", cancionController.getAll);
 //
 // router.put("/:id",cancionController.updateCancion);  
 router.get("/:id", cancionController.getById);
-router.delete("/:id" ,authenticateToken, isAdmin,cancionController.deleteCancion); 
+
+router.delete("/:id", authenticateToken, isAdmin, cancionController.softDelete);
+
+// Borrado Físico (Hard Delete) - SOLO ADMIN - SIN IMPLEMENTAR
+// Usamos una URL diferente para ser explícitos, por ejemplo '/hard/:id'
+/* router.delete("/hard/:id", authenticateToken, isAdmin, cancionController.hardDeleteReview); */
+
 router.get("/reviews/:id", reviewController.getSongReviews); //Para traer las reviews de una cancion
 
 module.exports = router;

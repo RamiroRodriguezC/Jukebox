@@ -16,16 +16,14 @@ async function getAlbumById(id) {
 }
 // Puedes añadir otras funciones aquí, como getAlbumById, createAlbum, etc.
 
-async function deleteAlbum(id){
-    // Reutilizamos la función genérica de 'soft delete' del servicio global
-    return await globalService.softDelete(Album, id);
-
+async function deleteAlbum(id, options = {}) {
+    return await Album.logicalDelete({ _id: id }, options);
 }
 
 
 module.exports = {
-    deleteAlbum,
     getAllAlbums,
     getAlbumById,
+    deleteAlbum,
     // ... otras funciones
 };

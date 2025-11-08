@@ -6,7 +6,11 @@ const { authenticateToken, isAdmin } = require('../middlewares/authMiddleware');
 
 router.get("/", artistaController.getAll);
 router.get("/:id", artistaController.getById);
-router.delete("/:id" ,authenticateToken, isAdmin,artistaController.deleteArtista);  // QUE EL DELETE SE HAGA SOBRE EL MISMO USUARIO QUE ESTA PIDIENDO ESE UPDATE O QUE LO HAGA UN ADMIN
+router.delete("/:id", authenticateToken, isAdmin, artistaController.softDelete);
+
+// Borrado Físico (Hard Delete) - SOLO ADMIN - SIN IMPLEMENTAR
+// Usamos una URL diferente para ser explícitos, por ejemplo '/hard/:id'
+/* router.delete("/hard/:id", authenticateToken, isAdmin, artistaController.hardDeleteReview); */
 
 
 module.exports = router;
