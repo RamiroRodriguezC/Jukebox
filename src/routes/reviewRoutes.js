@@ -2,7 +2,7 @@ const app = require('express');
 
 const router = app.Router();
 const reviewController = require('../controllers/reviewController');
-const {authenticateToken, isAdmin, isSelf} = require("../middlewares/authMiddleware")
+const { authenticateToken, isAdmin,isAuthor} = require('../middlewares/authMiddleware');
 
 router.get("/" , reviewController.getAll); 
 router.post("/create" ,authenticateToken ,reviewController.createReview);  
@@ -16,5 +16,3 @@ router.delete("/:id", authenticateToken, isAdmin, reviewController.softDelete);
 router.get("/:id", reviewController.getById); 
 
 
-
-module.exports = router;
