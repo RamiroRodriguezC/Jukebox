@@ -2,7 +2,7 @@ const app = require('express');
 
 const router = app.Router();
 const reviewController = require('../controllers/reviewController');
-const { authenticateToken, isAuthor } = require('../middlewares/authMiddleware');
+const {authenticateToken, isAdmin, isSelf} = require("../middlewares/authMiddleware")
 
 router.get("/" , reviewController.getAll); 
 router.post("/create" ,authenticateToken ,reviewController.createReview);  

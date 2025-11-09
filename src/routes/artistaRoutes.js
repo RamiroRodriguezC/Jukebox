@@ -2,7 +2,7 @@ const app = require('express');
 
 const router = app.Router();
 const artistaController = require('../controllers/artistaController');
-const { authenticateToken, isAdmin } = require('../middlewares/authMiddleware');
+const {authenticateToken, isAdmin, isSelf} = require("../middlewares/authMiddleware")
 
 router.get("/", artistaController.getAll);
 router.get("/:id", artistaController.getById);

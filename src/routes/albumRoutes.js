@@ -2,7 +2,7 @@ const app = require('express');
 
 const router = app.Router();
 const albumController = require('../controllers/albumController');
-const { authenticateToken,isAdmin } = require('../middlewares/authMiddleware');
+const {authenticateToken, isAdmin, isSelf} = require("../middlewares/authMiddleware")
 
 router.get("/", albumController.getAll);
 router.get("/:id", albumController.getById);
