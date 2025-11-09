@@ -75,7 +75,7 @@ async function runCascadeDelete(Model, filter, config) {
             Esto sigue hasta que lleguemos a un modelo sin hijos (caso base), momento en el cual
             la función simplemente marcará esos documentos como borrados y retornará.
             */
-            const childResult = await modeloHijo.logicalDelete(queryHijo);
+            const childResult = await modeloHijo.delete(queryHijo);
             
             /*  Esto es logica para el resumen/reporte final. 
             Cuando el hijo termina, nos devuelve SU reporte. Lo fusionamos con el nuestro.
