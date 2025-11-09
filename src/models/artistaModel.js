@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { runCascadeDelete } = require('../services/deleteService');
 
 const artistaSchema = new mongoose.Schema(
   {
