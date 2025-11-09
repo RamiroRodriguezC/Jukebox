@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { runCascadeDelete } = require('../services/cascadeService');
+const { runCascadeDelete } = require('../services/deleteService');
 
 const albumSchema = new mongoose.Schema(
   {
