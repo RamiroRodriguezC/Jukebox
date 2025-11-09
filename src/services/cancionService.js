@@ -64,7 +64,7 @@ async function buscarCanciones(busqueda) {
 } */
 
 async function deleteCancion(id, options = {}) {
-    return await Cancion.logicalDelete({ _id: id }, options);
+    return await Cancion.delete({ _id: id }, options);
 }
 
 

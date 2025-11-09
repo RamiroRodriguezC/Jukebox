@@ -17,7 +17,7 @@ async function getAlbumById(id) {
 // Puedes añadir otras funciones aquí, como getAlbumById, createAlbum, etc.
 
 async function deleteAlbum(id, options = {}) {
-    return await Album.logicalDelete({ _id: id }, options);
+    return await Album.delete({ _id: id }, options);
 }
 
 

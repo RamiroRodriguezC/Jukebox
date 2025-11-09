@@ -133,7 +133,7 @@ async function updateUsuario(id, data){
   }
 
 async function deleteUsuario(id, options = {}) {
-    return await Usuario.logicalDelete({ _id: id }, options);
+    return await Usuario.delete({ _id: id }, options);
 }
 
 

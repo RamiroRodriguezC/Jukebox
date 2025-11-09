@@ -13,7 +13,7 @@ async function getArtistaById(id) {
 }
 
 async function deleteArtista(id, options = {}) {
-    return await Artista.logicalDelete({ _id: id }, options);
+    return await Artista.delete({ _id: id }, options);
 }
 
 
