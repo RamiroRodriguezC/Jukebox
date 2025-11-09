@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 /**
  * Ejecuta un borrado lógico en cascada de forma genérica.
  * * NOTA: Esta implementación carga los IDs de los documentos a borrar en memoria.
