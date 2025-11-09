@@ -3,7 +3,7 @@ const app = require('express');
 const router = app.Router();
 const cancionController = require('../controllers/cancionController')
 const reviewController = require('../controllers/reviewController');
-const { authenticateToken, isAdmin } = require('../middlewares/authMiddleware');
+const {authenticateToken, isAdmin, isSelf} = require("../middlewares/authMiddleware")
 
 router.get('/search', cancionController.searchCanciones); 
 router.get("/", cancionController.getAll);

@@ -16,3 +16,5 @@ router.delete("/:id", authenticateToken, isAdmin, reviewController.softDelete);
 router.get("/:id", reviewController.getById); 
 
 
+
+module.exports = router;
