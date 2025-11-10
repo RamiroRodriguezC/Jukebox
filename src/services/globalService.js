@@ -159,9 +159,9 @@ async function getDocument(Model, filtro = {}) {
 }
 
 module.exports = {
-    softDelete,
+    /*softDelete,
     softDeleteMany,
-    isDeleted,
+    isDeleted,*/
     update,
     getDocument,
     getDocuments,

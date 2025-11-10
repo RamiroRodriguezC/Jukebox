@@ -35,7 +35,7 @@ async function softDelete(req, res) {
   try {
     const id = req.params.id;
     // Llamamos al servicio SIN opciones (por defecto es soft delete)
-    const result = await AlbumService.deleteAlbum(id);
+    const result = await albumService.deleteAlbum(id);
 
     if (result.albums === 0) {
         return res.status(404).json({ message: "Album no encontrado o ya eliminado." });

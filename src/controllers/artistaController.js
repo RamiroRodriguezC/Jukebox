@@ -28,11 +28,11 @@ async function getById(req, res) {
 
 
 // Borrado Lógico (Soft Delete)
-/* async function softDelete(req, res) {
+ async function softDelete(req, res) {
   try {
     const id = req.params.id;
     // Llamamos al servicio SIN opciones (por defecto es soft delete)
-    const result = await ArtistaService.deleteArtista(id);
+    const result = await artistaService.deleteArtista(id);
 
     if (result.artistas === 0) {
         return res.status(404).json({ message: "Artista no encontrado o ya eliminada." });
@@ -47,10 +47,10 @@ async function getById(req, res) {
     res.status(500).json({ error: "Error interno al eliminar al artista." });
   }
 } 
-*/
+
 
 module.exports = {
   getAll,
   getById,
-  //softDelete,
+  softDelete,
 };
