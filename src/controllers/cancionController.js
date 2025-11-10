@@ -55,7 +55,7 @@ async function softDelete(req, res) {
   try {
     const id = req.params.id;
     // Llamamos al servicio SIN opciones (por defecto es soft delete)
-    const result = await CancionService.deleteCancion(id);
+    const result = await cancionService.deleteCancion(id);
 
     if (result.canciones === 0) {
         return res.status(404).json({ message: "Cancion no encontrada o ya eliminada." });

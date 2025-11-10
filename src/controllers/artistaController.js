@@ -32,7 +32,7 @@ async function getById(req, res) {
   try {
     const id = req.params.id;
     // Llamamos al servicio SIN opciones (por defecto es soft delete)
-    const result = await ArtistaService.deleteArtista(id);
+    const result = await artistaService.deleteArtista(id);
 
     if (result.artistas === 0) {
         return res.status(404).json({ message: "Artista no encontrado o ya eliminada." });

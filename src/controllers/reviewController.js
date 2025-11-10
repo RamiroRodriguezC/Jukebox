@@ -42,7 +42,7 @@ async function softDelete(req, res) {
   try {
     const id = req.params.id;
     // Llamamos al servicio SIN opciones (por defecto es soft delete)
-    const result = await ReviewService.deleteReview(id);
+    const result = await reviewService.deleteReview(id);
 
     if (result.reviews === 0) {
         return res.status(404).json({ message: "Review no encontrado o ya eliminada." });
