@@ -90,16 +90,7 @@ cancionSchema.statics.delete = async function(query) {
         ],
 
         // 'effects': Lista de modelos RELACIONADOS que deben actualizarse (NO borrarse).
-        effects: [
-            /* EJEMPLO HIPOTÉTICO: Si Artista tuviera 'discografia' embebida
-            {
-                modelName: 'Artista',
-                reportAs: 'artistasActualizados', // <--- AQUÍ VA EL reportAs
-                buildQuery: (parentIds) => ({ 'discografia._id': { $in: parentIds } }),
-                operation: (parentIds) => ({ $pull: { discografia: { _id: { $in: parentIds } } } })
-            }
-            */
-        ]
+        effects: []
     });
 }
 
