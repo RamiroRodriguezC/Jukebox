@@ -45,7 +45,7 @@ const usuarioSchema = new mongoose.Schema(
 /* Declaramos como funcion estatica del schema (https://mongoosejs.com/docs/guide.html#statics) 
    Basicamente estamos agregandole una funcion mas, como find, como cualquier otra.      */
 
-albumSchema.statics.delete = async function(query) {
+usuarioSchema.statics.delete = async function(query) {
     // Llamamos al "corredor" genérico pasándole el modelo actual ('this'),
     // la query original, y el objeto de configuración de dependencias.
     return runCascadeDelete(this, query, {
