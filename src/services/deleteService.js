@@ -87,34 +87,13 @@ async function runCascadeDelete(Model, filter, config) {
         }
     }
 
-    /* 3. Procesar EFECTOS (Limpieza sin borrado)
-       A diferencia de la cascada, aquí NO llamamos a .logicalDelete().
-       Los efectos son para cuando queremos modificar documentos relacionados SIN borrarlos (los datos desnormalizados/embebidos).
-       Ejemplos puede ser, quitar la cancion del array de favoritos de algun usuarios, o, para una implementacion futura, borrar
-       canciones y albunes desnormalizadas en algun artista */
-
-    /* if (config.effects) {
-        for (const effectConfig of config.effects) {
-            const TargetModel = mongoose.model(effectConfig.modelName);
-            
-            // Construimos la query para encontrar qué documentos modificar.
-            const effectQuery = effectConfig.buildQuery(idsPadres);
-            // Construimos la operación de actualización (ej: { $pull: { ... } }).
-            const updateOp = effectConfig.operation(idsPadres);
-
-            console.log(`[Effect - ${Model.modelName} -> ${TargetModel.modelName}] Aplicando efecto...`);
-            
-            // Ejecutamos un updateMany directo en la base de datos.
-            const effectResult = await TargetModel.updateMany(effectQuery, updateOp);
-            
-            // Para el reporte, usamos un nombre personalizado si se proveyó ('reportAs'),
-            // o generamos uno genérico (ej: 'Usuario_effects').
-            const reportName = effectConfig.reportAs || `${effectConfig.modelName}_effects`;
-            
-            // Sumamos al reporte cuántos documentos fueron modificados por este efecto.
-            reporteFinal[reportName] = (reporteFinal[reportName] || 0) + effectResult.modifiedCount;
-        }
-    } */
+    /* 
+          3. ACA IRIA LA LOGICA PARA PROCESAR LOS "EFFECTS"
+          CONSISTE BASICAMENTE, EN MANEJAR EFECTOS SECUNDARIOS DE LA ELIMINACION DE UN DOCUMENTO
+          POR EJEMPLO, DATOS DEL PROPIO DOCUMENTO EMBEBIDOS/DESNORMALIZADOS EN OTRO.
+          POR FALTA DE TIEMPO NO LLEGO A IMPLEMENTARSE PARA ESTA INSTANCIA PERO SERA IMPLEMENTADO
+          SIN FALTA PARA LA INSTANCIA FINAL DEL TRABAJO.
+     */
 
     /* 4. Borrar los padres (la operación final)
        Cuando ya borramos todos los hijos correctamente, ahora si, borramos los padres
