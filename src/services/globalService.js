@@ -1,3 +1,5 @@
+const deleteService = require("./deleteService");
+
 /**
  * Realiza un update en un documento de Mongoose siempre y cuando este no este eliminado (Soft Delete) y exista.
  *  @param {object} Model - El modelo de Mongoose (Usuario, Review, Cancion, etc.).
@@ -15,7 +17,7 @@ async function update(Model, id, data) {
          throw error;
     }    
     // Si el documento está marcado como eliminado, lanzamos un error
-    if (await isDeleted(documento)) {
+    if (await deleteService.isDeleted(documento)) {
         const error = new Error(`${Model.modelName} no esta disponible o ha sido eliminad@ (ID: ${id})`);
         error.statusCode = 404;
          throw error;
